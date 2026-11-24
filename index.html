@@ -28,6 +28,12 @@
   <section class="scene-sim" id="sim-hero" aria-labelledby="q-sim">
     <canvas id="sim" aria-hidden="true"></canvas>
     <p class="sim-hint" id="sim-hint">Point anywhere on the landscape. It is only rendered in detail where you look.</p>
+    <aside class="hero-script" id="hero-script" hidden aria-label="What the character will do next">
+      <p class="hs-title">What it will do next</p>
+      <ol id="script" aria-live="off"></ol>
+      <p class="hs-status" id="status"></p>
+      <div class="hs-row"><button type="button" id="rewind">Rewind its life</button><span>Click the ground to drop an apple.</span></div>
+    </aside>
     <div class="wrap sim-title">
       <h1 id="q-sim">Are we living in a simulation?</h1>
       <div class="tally" id="tally-SIM"></div>
@@ -168,14 +174,16 @@ async function main() {
 main().catch(e => console.error(e));
 </script>
 <script type="module">
-import { simScene, latticeScene, fwScene } from './scenes.js';
+import { simScene, fwScene } from './scenes.js';
+import { mountWorld } from './world.js';
 await document.fonts.ready;
 const heroEl = document.getElementById('sim-hero'), simCanvas = document.getElementById('sim');
-if (new URLSearchParams(location.search).get('hero') === 'lattice') {
-  heroEl.classList.add('is-lattice');
-  document.getElementById('sim-hint').textContent = 'Click anywhere to cause an event. Its effects spread one cell per tick, and no faster.';
-  document.getElementById('sim-note').innerHTML = 'In a simulated grid, nothing can travel faster than one cell per update, so every effect spreads out as a growing cube. Some argue the speed of light is our universe’s version of that limit. Claim SIM13 tests whether that idea holds up.';
-  latticeScene(simCanvas, heroEl);
+if (new URLSearchParams(location.search).get('hero') === 'world') {
+  heroEl.classList.add('is-world');
+  document.getElementById('sim-hint').hidden = true;
+  document.getElementById('hero-script').hidden = false;
+  document.getElementById('sim-note').innerHTML = 'The character above is simulated. Everything it does follows from its needs, its world and a fixed seed, so its next moves can be read before it makes them, and a rewind replays the same life. Whether that is true of us is what the ledger tests. <a href="world.html">Open the full rerun</a>.';
+  mountWorld(heroEl, { canvas: simCanvas, hero: true, alwaysScript: true, scriptItems: 3 });
 } else {
   simScene(simCanvas, heroEl);
 }

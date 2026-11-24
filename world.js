@@ -147,18 +147,21 @@ function readScript(w, n = 6) {
 }
 
 /* ---------- page ---------- */
-export function mountWorld(root) {
-  const canvas = root.querySelector('canvas'), ctx = canvas.getContext('2d');
-  const scriptEl = root.querySelector('#script'), scriptBtn = root.querySelector('#read-script');
-  const statusEl = root.querySelector('#status'), livesEl = root.querySelector('#lives');
-  let seed = 20261124, w = newWorld(seed), script = readScript(w), revealed = false;
+export function mountWorld(root, opts = {}) {
+  const canvas = opts.canvas || root.querySelector('canvas'), ctx = canvas.getContext('2d');
+  const q = sel => root.querySelector(sel);
+  const scriptEl = q('#script'), scriptBtn = q('#read-script');
+  const statusEl = q('#status'), livesEl = q('#lives');
+  const SHOW = opts.scriptItems || 6, hero = !!opts.hero;
+  let seed = 20261124, w = newWorld(seed), script = readScript(w), revealed = !!opts.alwaysScript;
   let checked = 0, correct = 0, lives = 1, previousLife = [], thisLife = [], disturbed = false;
   let thought = null, flash = 0;
 
   function renderScript() {
+    if (!scriptEl) return;
     if (!revealed) { scriptEl.hidden = true; return; }
     scriptEl.hidden = false;
-    scriptEl.innerHTML = script.slice(0, 6).map((d, i) => {
+    scriptEl.innerHTML = script.slice(0, SHOW).map((d, i) => {
       const secs = Math.max(0, (d.tick - w.tick) / TPS);
       const prev = previousLife[d.n - 1];
       const same = !disturbed && lives > 1 && prev ? (prev === d.kind + '@' + d.at ? '<span class="same">same as last life</span>' : '<span class="diff">different</span>') : '';
@@ -166,10 +169,11 @@ export function mountWorld(root) {
     }).join('');
   }
   function renderStatus() {
+    if (!statusEl) return;
     statusEl.textContent = checked
       ? `The script has been right ${correct} of ${checked} times.`
       : 'The script is written before each decision is made.';
-    livesEl.textContent = lives > 1
+    if (livesEl) livesEl.textContent = lives > 1
       ? (disturbed ? `Life ${lives}. You changed the world, so this life can differ from the last.` : `Life ${lives}. Same seed, same world, so far the same choices.`)
       : 'Life 1.';
   }
@@ -184,17 +188,17 @@ export function mountWorld(root) {
     renderStatus();
   }
 
-  root.querySelector('#rewind').addEventListener('click', () => {
+  q('#rewind')?.addEventListener('click', () => {
     previousLife = disturbed ? [] : thisLife; thisLife = []; disturbed = false;
     w = newWorld(seed); script = readScript(w); lives++; checked = correct = 0; thought = null;
     renderStatus(); renderScript();
   });
-  root.querySelector('#new-life').addEventListener('click', () => {
+  q('#new-life')?.addEventListener('click', () => {
     seed = (seed * 1103515245 + 12345) & 0x7fffffff;
     w = newWorld(seed); script = readScript(w); lives = 1; previousLife = []; thisLife = []; disturbed = false;
     checked = correct = 0; thought = null; renderStatus(); renderScript();
   });
-  scriptBtn.addEventListener('click', () => {
+  scriptBtn?.addEventListener('click', () => {
     revealed = !revealed; scriptBtn.textContent = revealed ? 'Hide the script' : 'Read the script';
     scriptBtn.setAttribute('aria-expanded', revealed); renderScript();
   });
@@ -205,8 +209,14 @@ export function mountWorld(root) {
   function resize() {
     const r = canvas.getBoundingClientRect(); dpr = Math.min(devicePixelRatio, 2);
     CW = r.width; CH = r.height; canvas.width = CW * dpr; canvas.height = CH * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    TW = Math.min(CW / (W + H) * 2 * 0.96, 76); TH = TW / 2;
-    ox = CW / 2 - (W - H) * TW / 4; oy = (CH - (W + H) * TH / 2) / 2 + TH * 0.6;
+    if (hero) {
+      const wide = CW > 860;
+      TW = Math.min((wide ? CW * 0.62 : CW * 0.96) / (W + H) * 2, CH * (wide ? 0.56 : 0.42) / (W + H) * 4, 100); TH = TW / 2;
+      ox = CW * (wide ? 0.55 : 0.5) - (W - H) * TW / 4; oy = CH * (wide ? 0.05 : 0.08) + TH * 1.6;
+    } else {
+      TW = Math.min(CW / (W + H) * 2 * 0.96, 76); TH = TW / 2;
+      ox = CW / 2 - (W - H) * TW / 4; oy = (CH - (W + H) * TH / 2) / 2 + TH * 0.6;
+    }
   }
   new ResizeObserver(resize).observe(canvas); resize();
 
@@ -308,6 +318,7 @@ export function mountWorld(root) {
   let acc = 0, last = performance.now(), lastScript = 0, running = false;
   function frame(now) {
     if (!running) return;
+    if (Math.abs(canvas.getBoundingClientRect().width - CW) > 1) resize();
     acc += Math.min(250, now - last) / 1000 * TPS; last = now;
     while (acc >= 1) { acc -= 1; const d = step(w); if (d) onDecision(d); }
     draw(acc);
