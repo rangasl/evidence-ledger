@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evidence Ledger — taking the world apart, one claim a day</title>
+<meta name="description" content="Are we living in a simulation? Do we have free will? One claim a day, its strongest attack, and a verdict.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="alt.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="alt.html">Evidence Ledger</a>
+    <nav aria-label="Main">
+      <a href="#oracle">Free will</a>
+      <a href="#ledger">Ledger</a>
+      <a href="index.html">Classic view</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="story" id="story" aria-label="Are we living in a simulation?">
+    <div class="stage">
+      <canvas id="world" aria-hidden="true"></canvas>
+      <div class="steps">
+        <div class="step on">
+          <h1>Are we living in a simulation?</h1>
+          <p>Scroll to take the world apart.</p>
+        </div>
+        <div class="step">
+          <h2>Up close, everything is made of pieces.</h2>
+          <p>Atoms, cells, pixels. The real question is whether space itself has a smallest piece.</p>
+        </div>
+        <div class="step">
+          <h2>If it does, is that a pixel?</h2>
+          <p>Some argue the Planck length is the resolution of reality. We check that against measurements of light from distant gamma-ray bursts.</p>
+          <span class="claim">Claim SIM03</span>
+        </div>
+        <div class="step">
+          <h2>Any simulated world is, underneath, a table of numbers.</h2>
+          <p>That alone doesn't make ours one. We test one claim a day and publish the ones that die.</p>
+          <span class="claim" id="sim-count"></span>
+        </div>
+      </div>
+      <div class="progress" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span></div>
+    </div>
+  </section>
+
+  <section class="act" id="oracle" aria-labelledby="fw-h">
+    <div class="wrap">
+      <h2 class="big" id="fw-h">Do we have free will?</h2>
+      <p class="lede">Press left or right, as randomly as you can. Before each press, this page writes down a guess. Most people are more predictable than they think.</p>
+      <div class="oracle">
+        <div>
+          <div class="choices">
+            <button type="button" data-k="L">Left<kbd>or press F</kbd></button>
+            <button type="button" data-k="R">Right<kbd>or press J</kbd></button>
+          </div>
+          <p class="verdict-line" id="said" aria-live="polite">A guess is locked in. Make your choice.</p>
+        </div>
+        <div>
+          <p class="score" id="score">–</p>
+          <p class="score-sub" id="score-sub">of guesses correct. Pure chance would be 50%.</p>
+          <div class="bar" aria-hidden="true"><i id="bar"></i><b></b></div>
+          <div class="bar-labels" aria-hidden="true"><span>0%</span><span>chance</span><span>100%</span></div>
+          <div class="history" id="history" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="moral">
+        <p>Being predictable isn't the same as having no free will. That gap is exactly what we test. Day 1 found that brain activity before a choice doesn't show the brain decided for you. <a href="entry.html?day=2026-11-24">Read Day 1</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="act" id="ledger" aria-labelledby="ledger-h">
+    <div class="wrap">
+      <h2 class="big" id="ledger-h">The ledger so far</h2>
+      <p class="lede">Each block is one claim. Colour is the verdict: green survives, amber wounded, red dead, violet unfalsifiable.</p>
+      <div class="tracks">
+        <div class="track"><h3>Simulation</h3><ul class="cells" id="cells-SIM"></ul><p id="sum-SIM"></p></div>
+        <div class="track"><h3>No free will</h3><ul class="cells" id="cells-FW"></ul><p id="sum-FW"></p></div>
+      </div>
+      <article class="latest" id="latest"></article>
+      <ol class="next" id="next"></ol>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">An independent, one-person research lab working with AI research agents. Every source is checked before it is published.</div>
+</footer>
+
+<script type="module" src="alt.js"></script>
+</body>
+</html>

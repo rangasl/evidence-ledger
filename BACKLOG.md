@@ -32,6 +32,7 @@ Status: QUEUED · IN-PROGRESS · SURVIVES · WOUNDED · DEAD · UNFALSIFIABLE
 | SIM10 | Undecidability (Gödel) means the universe cannot be a computational simulation | Faizal et al. 2025 | attack | QUEUED |
 | SIM11 | Proposed double-slit/delayed-choice tests could detect a simulation | Campbell et al. 2017, *The Physics Essays* | testable | QUEUED |
 | SIM12 | Mathematics describes physics "unreasonably" well — consistent with a coded universe | Wigner 1960; Tegmark 2008 | argument | QUEUED |
+| SIM13 | The speed of light is a processing limit — information spreads at most one cell per update | Folk claim; compare cellular-automaton light cones and Lorentz invariance tests | folk | QUEUED |
 
 ## Ranga's hypotheses
 | ID | Claim | Source | Tag | Status |

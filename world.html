@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The rerun — Evidence Ledger</title>
+<meta name="description" content="A small world with one inhabitant. Every choice it makes can be read in advance, and a rewind replays the same life.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+  .rerun { padding-block: clamp(2rem, 5vw, 3.5rem) clamp(3rem, 7vw, 5rem); }
+  .rerun h1 { font: 800 clamp(2.4rem, 6.5vw, 5rem)/0.95 var(--display); font-stretch: 125%; letter-spacing: -0.02em; margin: 0 0 1rem; max-width: 16ch; }
+  .rerun .lede { max-width: 54ch; color: var(--ink-soft); margin: 0 0 2rem; }
+  .rerun-grid { display: grid; grid-template-columns: minmax(0, 1fr) 21rem; gap: 2rem; align-items: start; }
+  @media (max-width: 900px) { .rerun-grid { grid-template-columns: minmax(0, 1fr); } }
+  .rerun canvas { display: block; width: 100%; height: clamp(340px, 46vw, 560px); cursor: copy; }
+  .panel { border-top: 2px solid var(--ink); padding-top: 1rem; }
+  .panel p { margin: 0 0 0.75rem; font: 500 0.98rem/1.45 var(--display); }
+  .panel .soft { color: var(--ink-soft); font-weight: 400; }
+  .controls { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 1.25rem; }
+  .controls button {
+    font: 600 0.95rem/1 var(--display); color: var(--ink); background: transparent;
+    border: 1.5px solid var(--ink); padding: 0.7rem 0.9rem; cursor: pointer;
+  }
+  .controls button.primary { background: var(--ink); color: var(--paper); }
+  .controls button:hover { background: var(--paper-deep); }
+  .controls button.primary:hover { background: #2B3553; }
+  #script { list-style: none; margin: 0; padding: 0; }
+  #script li { display: grid; grid-template-columns: 4.5rem 1fr; gap: 0.2rem 0.75rem; padding: 0.55rem 0; border-bottom: 1px solid var(--rule); font: 400 0.95rem/1.35 var(--display); }
+  #script li.next { font-weight: 600; }
+  #script .when { color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+  #script .same, #script .diff { grid-column: 2; font-size: 0.82rem; }
+  #script .same { color: var(--survives); }
+  #script .diff { color: var(--dead); }
+  .rerun-note { max-width: 62ch; margin-top: 2.5rem; padding-left: 1.1rem; border-left: 4px solid var(--wounded); }
+  .rerun-note p { margin: 0 0 0.75rem; }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="./">Evidence Ledger</a>
+    <nav aria-label="Main">
+      <a href="./#ledger">Ledger</a>
+      <a href="./#method">Method</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap rerun" id="rerun">
+  <h1>The rerun</h1>
+  <p class="lede">This small world has one inhabitant. It gets hungry, tired and bored, and it decides what to do about it. Read the script to see its next decisions before it makes them. Rewind, and it lives the same life again.</p>
+  <div class="rerun-grid">
+    <canvas role="img" aria-label="An isometric garden with a pond, trees, berry bushes and benches. A small figure walks between them, with a dotted line showing where it is going next."></canvas>
+    <aside class="panel" aria-label="Controls and script">
+      <p id="status"></p>
+      <p class="soft" id="lives"></p>
+      <div class="controls">
+        <button type="button" class="primary" id="read-script" aria-expanded="false" aria-controls="script">Read the script</button>
+        <button type="button" id="rewind">Rewind this life</button>
+        <button type="button" id="new-life">New life</button>
+      </div>
+      <ol id="script" hidden aria-live="off"></ol>
+      <p class="soft">Click the ground to drop an apple. The script rewrites itself, because you changed its world.</p>
+    </aside>
+  </div>
+  <div class="rerun-note">
+    <p>Each thought bubble appears a moment after the decision is already in the script. That echoes what Libet reported in people, though <a href="entry.html?day=2026-11-24">Day 1</a> found that reading is weaker than it looks.</p>
+    <p>This character is a program, so of course its life can be replayed. Whether the same is true of us is the real question. The determinism argument is claim FW08, and its verdict isn't in yet.</p>
+  </div>
+</main>
+<script type="module">
+  import { mountWorld } from './world.js';
+  await document.fonts.ready;
+  mountWorld(document.getElementById('rerun'));
+</script>
+</body>
+</html>

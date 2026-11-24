@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evidence Ledger — simulation and free will, one claim a day</title>
+<meta name="description" content="Are we living in a simulation? Do we have free will? One claim a day, its strongest attack, and a verdict. We publish the claims that die too.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="./">Evidence Ledger</a>
+    <nav aria-label="Main">
+      <a href="#ledger">Ledger</a>
+      <a href="#method">Method</a>
+      <a href="#next">Up next</a>
+      <a href="https://github.com/" id="gh">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="scene-sim" id="sim-hero" aria-labelledby="q-sim">
+    <canvas id="sim" aria-hidden="true"></canvas>
+    <p class="sim-hint" id="sim-hint">Point anywhere on the landscape. It is only rendered in detail where you look.</p>
+    <div class="wrap sim-title">
+      <h1 id="q-sim">Are we living in a simulation?</h1>
+      <div class="tally" id="tally-SIM"></div>
+    </div>
+  </section>
+
+  <section class="intro-band">
+    <div class="wrap intro-grid">
+      <p class="intro">We think the answers are yes and no. Every day we test one claim, give it the strongest attack we can find, and publish the verdict, including the claims that die.</p>
+      <p class="scene-note" id="sim-note">The landscape above is drawn as coarse blocks until you look at it. Where you point, the blocks fall away to reveal the surveyed surface: the popular idea that reality “renders when observed”. Claim SIM04 tests whether physics actually works like this.</p>
+    </div>
+  </section>
+
+  <section class="scene-fw" aria-labelledby="q-fw">
+    <div class="wrap">
+      <div class="question">
+        <h2 id="q-fw">Do we have free will?</h2>
+        <div class="tally" id="tally-FW"></div>
+      </div>
+      <figure class="fw-figure">
+        <canvas id="fw" role="img" aria-label="Animated chart: random noisy lines drift toward a threshold; averaging them backwards from each crossing produces a slow rising curve."></canvas>
+        <figcaption>Each line is random noise drifting toward a threshold, the model Schurger and colleagues proposed in 2012. Nothing here decides anything. Yet average the last two seconds before each crossing (<span id="fw-count">0</span> so far) and a slow rise appears: the shape Libet called a readiness potential. <a href="entry.html?day=2026-11-24">Read Day 1</a>.</figcaption>
+      </figure>
+      <p class="rerun-link"><a href="world.html">Play the rerun</a>: watch a small character make choices you can read in advance, then rewind its life and see it choose the same way again.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="latest-h">
+    <div class="wrap band-grid">
+      <div>
+        <h2 id="latest-h">Latest verdict</h2>
+      </div>
+      <article class="latest" id="latest"></article>
+    </div>
+  </section>
+
+  <section class="band" id="ledger" aria-labelledby="ledger-h">
+    <div class="wrap band-grid">
+      <div>
+        <h2 id="ledger-h">The ledger</h2>
+        <p class="lede">Every claim tested so far. Verdicts are never edited; changes are added as dated revisions.</p>
+      </div>
+      <div>
+        <table class="ledger">
+          <thead><tr><th>Day</th><th class="hide-sm">Date</th><th>Claim</th><th>Verdict</th></tr></thead>
+          <tbody id="ledger-rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="method" aria-labelledby="method-h">
+    <div class="wrap band-grid">
+      <div>
+        <h2 id="method-h">How a claim is judged</h2>
+        <p class="lede">The same four steps, every day.</p>
+      </div>
+      <div>
+        <ol class="steps">
+          <li><div><h3>The case for</h3><p>One researcher builds the strongest honest case that the claim supports the thesis, starting from what the original study actually measured.</p></div></li>
+          <li><div><h3>The case against</h3><p>A second researcher, who never sees the first case, tries to kill the claim: failed replications, better explanations, measurement limits.</p></div></li>
+          <li><div><h3>The judgement</h3><p>A judge checks that every cited paper exists and says what we claim, corrects both sides, and rules. It also writes down what would change the verdict.</p></div></li>
+          <li><div><h3>The record</h3><p>The entry is published with every source linked. If new evidence arrives later, the verdict is revised in public, with the date and the reason.</p></div></li>
+        </ol>
+        <div class="legend">
+          <div data-v="SURVIVES"><b>Survives</b>The strongest known attack fails. The claim stands as evidence.</div>
+          <div data-v="WOUNDED"><b>Wounded</b>Holds only in a weaker form, which we state exactly.</div>
+          <div data-v="DEAD"><b>Dead</b>The attack succeeds. Not evidence for the thesis.</div>
+          <div data-v="UNFALSIFIABLE"><b>Unfalsifiable</b>No observation could settle it. Philosophy, not evidence.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="next" aria-labelledby="next-h">
+    <div class="wrap band-grid">
+      <div>
+        <h2 id="next-h">Up next</h2>
+        <p class="lede">Have a stronger counter-argument to a verdict? Open an issue on GitHub and it joins the queue.</p>
+      </div>
+      <ol class="next" id="next-list"></ol>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>An independent, one-person research lab working with AI research agents. Every source is checked before it is published.</p>
+    <p><a href="https://github.com/" id="gh2">Source and history on GitHub</a></p>
+  </div>
+</footer>
+
+<script>
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const label = v => v.charAt(0) + v.slice(1).toLowerCase();
+const entryUrl = d => `entry.html?day=${encodeURIComponent(d.date)}`;
+const firstSim = "Bostrom’s simulation argument";
+
+function tally(track, days) {
+  const el = document.getElementById('tally-' + track);
+  const mine = days.filter(d => d.track === track);
+  if (!mine.length) {
+    el.innerHTML = `<p class="tally-text">No claims tested yet. First up: ${esc(firstSim)}.</p>`;
+    return;
+  }
+  const n = v => mine.filter(d => d.verdict === v).length;
+  const cells = mine.map(d =>
+    `<li><a href="${entryUrl(d)}" data-v="${d.verdict}" title="Day ${d.day}: ${esc(d.title)} (${label(d.verdict)})" aria-label="Day ${d.day}: ${esc(d.title)}, ${label(d.verdict)}"></a></li>`).join('');
+  const parts = [['SURVIVES','survive'],['WOUNDED','wounded'],['DEAD','dead'],['UNFALSIFIABLE','unfalsifiable']]
+    .map(([v, w]) => `${n(v)} ${w}`).join(', ');
+  el.innerHTML = `<ul class="cells">${cells}</ul><p class="tally-text"><strong>${mine.length} tested</strong>: ${parts}</p>`;
+}
+
+async function main() {
+  const { days } = await (await fetch('ledger.json')).json();
+  tally('SIM', days); tally('FW', days);
+
+  const last = days[days.length - 1];
+  document.getElementById('latest').innerHTML = last ? `
+    <p class="meta">Day ${last.day}, ${new Date(last.date).toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'})}. ${last.track === 'FW' ? 'Free will' : 'Simulation'} track. ${esc(last.source)}</p>
+    <h3>${esc(last.title)}</h3>
+    <span class="stamp" data-v="${last.verdict}">${label(last.verdict)}</span>
+    <p class="summary">${esc(last.summary)}</p>
+    <blockquote data-v="${last.verdict}">${esc(last.survives)}</blockquote>
+    <a class="read" href="${entryUrl(last)}">Read the full entry and sources</a>` : '<p>The first verdict is published soon.</p>';
+
+  document.getElementById('ledger-rows').innerHTML = days.slice().reverse().map(d => `
+    <tr><td class="num">${d.day}</td><td class="num hide-sm">${d.date}</td>
+    <td><a href="${entryUrl(d)}">${esc(d.title)}</a></td>
+    <td class="v" data-v="${d.verdict}">${label(d.verdict)}</td></tr>`).join('');
+
+  const md = await (await fetch('BACKLOG.md')).text();
+  const queued = md.split('\n').filter(l => /\|\s*QUEUED\s*\|\s*$/.test(l)).slice(0, 5)
+    .map(l => l.split('|').map(s => s.trim()));
+  document.getElementById('next-list').innerHTML = queued.map(c =>
+    `<li><span class="id">${esc(c[1])}</span><span>${esc(c[2])}</span></li>`).join('');
+}
+main().catch(e => console.error(e));
+</script>
+<script type="module">
+import { simScene, latticeScene, fwScene } from './scenes.js';
+await document.fonts.ready;
+const heroEl = document.getElementById('sim-hero'), simCanvas = document.getElementById('sim');
+if (new URLSearchParams(location.search).get('hero') === 'lattice') {
+  heroEl.classList.add('is-lattice');
+  document.getElementById('sim-hint').textContent = 'Click anywhere to cause an event. Its effects spread one cell per tick, and no faster.';
+  document.getElementById('sim-note').innerHTML = 'In a simulated grid, nothing can travel faster than one cell per update, so every effect spreads out as a growing cube. Some argue the speed of light is our universe’s version of that limit. Claim SIM13 tests whether that idea holds up.';
+  latticeScene(simCanvas, heroEl);
+} else {
+  simScene(simCanvas, heroEl);
+}
+fwScene(document.getElementById('fw'), document.getElementById('fw-count'));
+</script>
+</body>
+</html>

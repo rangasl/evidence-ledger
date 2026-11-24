@@ -1,0 +1,16 @@
+{
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-11-24",
+      "id": "FW01",
+      "track": "FW",
+      "title": "Does the brain decide before you do?",
+      "source": "Libet, Gleason, Wright & Pearl 1983",
+      "verdict": "WOUNDED",
+      "summary": "The timing holds; reading it as “no free will” does not.",
+      "survives": "For arbitrary, purposeless movements, a slow brain signal begins several hundred ms before the reported urge. The reported urge is not the first measurable event — but nothing shows the brain decided unconsciously, and it doesn't cover real choices.",
+      "file": "days/2026-11-24.md"
+    }
+  ]
+}
