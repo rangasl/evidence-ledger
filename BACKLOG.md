@@ -7,7 +7,7 @@ Status: QUEUED · IN-PROGRESS · SURVIVES · WOUNDED · DEAD · UNFALSIFIABLE
 | ID | Claim | Primary source | Tag | Status |
 |---|---|---|---|---|
 | FW01 | Brain activity (readiness potential) precedes the conscious decision to move by ~350 ms | Libet et al. 1983, *Brain* | classic | WOUNDED (2026-11-24) |
-| FW02 | fMRI can predict a left/right choice up to ~7–10 s before the person is aware of deciding | Soon et al. 2008, *Nature Neuroscience* | classic | QUEUED |
+| FW02 | fMRI can predict a left/right choice up to ~7–10 s before the person is aware of deciding | Soon et al. 2008, *Nature Neuroscience* | classic | WOUNDED (2026-11-26) |
 | FW03 | Single neurons predict a voluntary movement ~700 ms before awareness with high accuracy | Fried, Mukamel & Kreiman 2011, *Neuron* | classic | QUEUED |
 | FW04 | Stimulating parietal cortex creates a felt intention to move — "will" can be produced artificially | Desmurget et al. 2009, *Science* | classic | QUEUED |
 | FW05 | People defend choices they never made without noticing (choice blindness) | Johansson & Hall et al. 2005, *Science* | classic | QUEUED |

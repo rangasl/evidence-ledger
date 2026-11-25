@@ -23,6 +23,18 @@
       "summary": "The trilemma is valid logic, but it puts the odds of simulation near a third to a half, not “almost certainly”.",
       "survives": "You can't consistently believe all three: we'll reach posthuman tech, posthumans run many ancestor simulations, and we aren't simulated. But on its own the argument gives about 1/3 (Bostrom) to just under 1/2 (Kipping) odds of simulation, not near-certainty, and it says nothing about free will.",
       "file": "days/2026-11-25.md"
+    },
+    {
+      "day": 3,
+      "date": "2026-11-26",
+      "id": "FW02",
+      "track": "FW",
+      "title": "Can a brain scan see your choice 10 seconds early?",
+      "source": "Soon, Brass, Heinze & Haynes 2008",
+      "verdict": "WOUNDED",
+      "summary": "The early signal is real, but it is a ~60% lean, not a prediction, and your past choices predict as well.",
+      "survives": "In 12 pre-selected people, brain patterns guessed a left/right button press at about 55–60% (chance is 50%), starting about 7 s before they felt they decided. That is a small early lean, no better than guessing from their previous choices, and only the same lab has replicated it.",
+      "file": "days/2026-11-26.md"
     }
   ]
 }
