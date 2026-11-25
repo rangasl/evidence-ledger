@@ -37,4 +37,4 @@ Status: QUEUED · IN-PROGRESS · SURVIVES · WOUNDED · DEAD · UNFALSIFIABLE
 ## Ranga's hypotheses
 | ID | Claim | Source | Tag | Status |
 |---|---|---|---|---|
-| R01 | _(your own thought experiments go here — the lab attacks them like any other claim)_ | Ranga | own | — |
+| R01 | Under the simulation hypothesis, nirvāṇa (ending craving) is the only exit: the agent stops being re-instantiated | Ranga; model + paper draft 2026-11-25 | own | UNFALSIFIABLE (2026-11-25, draft) |

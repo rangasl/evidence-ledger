@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research — Evidence Ledger</title>
+<meta name="description" content="Longer research papers from the Evidence Ledger lab: formal models, simulations and verdicts on hypotheses about simulation and free will.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="./">Evidence Ledger</a>
+    <nav aria-label="Main">
+      <a href="./#ledger">Ledger</a>
+      <a href="research.html" aria-current="page">Research</a>
+      <a href="./#method">Method</a>
+      <a href="https://github.com/rangasl/evidence-ledger">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="research-head">
+    <div class="wrap">
+      <h1>Research</h1>
+      <p class="intro">The daily ledger tests one claim at a time. Papers go further: they take a hypothesis, build a formal model of it, run the simulations, and then attack the result. Each one is published with a verdict, using the same scale as the ledger.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap band-grid">
+      <div>
+        <h2>Papers</h2>
+        <p class="lede">Newest first. Working papers are revised in public; each revision is dated.</p>
+      </div>
+      <ol class="papers" id="papers"><li>Loading papers.</li></ol>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>An independent, one-person research lab working with AI research agents. Every source is checked before it is published.</p>
+    <p><a href="https://github.com/rangasl/evidence-ledger">Source and history on GitHub</a></p>
+  </div>
+</footer>
+
+<script>
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const label = v => v.charAt(0) + v.slice(1).toLowerCase();
+fetch('papers.json').then(r => r.json()).then(({ papers }) => {
+  document.getElementById('papers').innerHTML = papers.slice().sort((a, b) => b.date.localeCompare(a.date)).map(p => `
+    <li data-v="${p.verdict}">
+      <p class="p-meta">${esc(p.id)} · ${new Date(p.date).toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'})} · ${esc(p.status)}</p>
+      <h3><a href="${esc(p.file)}">${esc(p.title)}</a></h3>
+      <p class="p-sub">${esc(p.subtitle)}</p>
+      <p class="p-sum">${esc(p.summary)}</p>
+      <p class="p-foot"><span class="stamp" data-v="${p.verdict}">${label(p.verdict)}</span><span>${p.figures} interactive figures</span><a href="${esc(p.file)}">Read the paper</a></p>
+    </li>`).join('');
+}).catch(() => { document.getElementById('papers').innerHTML = '<li>The list could not be loaded. Refresh the page.</li>'; });
+</script>
+</body>
+</html>

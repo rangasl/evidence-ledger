@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nirvāṇa as an exit condition — Evidence Ledger Research</title>
+<meta name="description" content="A formal model of the hypothesis that, if we live in a simulation, nirvāṇa is how an agent leaves it. With interactive simulations. Verdict: unfalsifiable as stated.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="paper.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.querySelector('.paper'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]})"></script>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../">Evidence Ledger</a>
+    <nav aria-label="Main">
+      <a href="../#ledger">Ledger</a>
+      <a href="../research.html" aria-current="page">Research</a>
+      <a href="../#method">Method</a>
+      <a href="https://github.com/rangasl/evidence-ledger">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="paper-hero">
+    <div class="wrap">
+      <p class="kicker"><a href="../research.html">Research</a> · R01 · Working paper, version 1</p>
+      <h1>Nirvāṇa as an exit condition</h1>
+      <p class="sub">A formal model of liberation under the simulation hypothesis</p>
+      <p class="byline"><span><b>Ranga</b>, with Claude research agents</span><span>25 November 2026</span><span>4 interactive figures</span></p>
+    </div>
+    <div class="embers">
+      <canvas id="embers" aria-hidden="true"></canvas>
+      <p>Each point is an agent. Brightness is craving; green is a noble stage. A point that reaches zero is not run again, and goes out.</p>
+    </div>
+    <div class="wrap paper-verdict">
+      <div class="verdict-banner" data-v="UNFALSIFIABLE">
+        <span class="stamp" data-v="UNFALSIFIABLE">Unfalsifiable</span>
+        <p>Given the simulation hypothesis and the Buddhist account of rebirth, nirvāṇa is coherently the one condition under which an agent stops being run. Nothing inside the simulation can show whether that is escape or deletion.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap paper-layout">
+    <nav class="toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#abstract">Abstract</a></li>
+        <li><a href="#s1">1 Introduction</a></li>
+        <li><a href="#s2">2 Leaving a simulation</a></li>
+        <li><a href="#s3">3 What the texts say</a></li>
+        <li><a href="#s4">4 The model</a></li>
+        <li><a href="#s5">5 Results</a></li>
+        <li><a href="#s6">6 Escape or deletion?</a></li>
+        <li><a href="#s7">7 What could test it</a></li>
+        <li><a href="#s8">8 Prior art</a></li>
+        <li><a href="#s9">9 Limitations and verdict</a></li>
+        <li><a href="#refs">References</a></li>
+      </ol>
+    </nav>
+
+    <article class="paper">
+      <div class="abstract">
+        <h2 id="abstract">Abstract</h2>
+        <p>We formalise the hypothesis that, if we live in a simulation, nirvāṇa is how an agent leaves it. The agent is a craving state carried from life to life, and the simulation runs it again while craving is above zero. Ordinary life raises craving at rate \(b\), practice lowers it at rate \(a\), and the noble stages never regress. Exit is certain whenever \(a > 0\). The expected number of lives grows exponentially with the number of craving levels once \(\rho = b/a\) exceeds 1, matching the canon's beginningless saṃsāra. The seven-lives teaching requires each post-stream-entry step to succeed with probability at least 0.76 per life. We prove that escape and deletion produce identical histories inside the simulation: the formal counterpart of the Buddha's refusal to say what happens to the liberated after death. Data on cessation events in meditation exist, but come mostly from one practitioner and describe reversible events, so they cannot test the hypothesis.</p>
+      </div>
+
+      <h2 id="s1">1 Introduction</h2>
+      <p>This paper formalises one hypothesis and tests what follows from it. It does not claim the hypothesis is true.</p>
+      <p><strong>Hypothesis N.</strong> Suppose (S) we are agents running inside a computed world, and (D) the Buddhist account of dependent origination describes the process that keeps an agent running. Then nirvāṇa, the complete ending of craving, is the condition under which the simulation stops re-instantiating that agent, and is its only exit.</p>
+      <p>Neither S nor D can be observed from inside, so N cannot be confirmed or refuted directly. What can be done is conditional: assume S and D, build the simplest model that honours both, and ask what nirvāṇa must then be, how likely it is, and what would count against it. The contributions are:</p>
+      <ol>
+        <li>a model in which craving sets whether an agent is instantiated again, with nirvāṇa as an absorbing state;</li>
+        <li>conditions under which exit is certain or impossible, and the expected number of lives before it;</li>
+        <li>an argument against the hypothesis's own framing. Leaving looks exactly like no longer being run, and the model cannot tell escape from deletion. Neither can the early texts, which refuse the question.</li>
+      </ol>
+      <p>The method is the Evidence Ledger's: the strongest case, then the strongest attack, then what survives.</p>
+
+      <h2 id="s2">2 What leaving a simulation could mean</h2>
+      <p>Bostrom's simulation argument concludes that at least one of three things is true: civilisations rarely reach the ability to run detailed simulations of minds, they rarely choose to, or we are almost certainly simulated <a href="#r-bostrom">[Bostrom 2003]</a>. It says nothing about whether a simulated mind can leave.</p>
+      <p>From inside a computed world, an agent is not an object but a process: a state the system keeps updating and, if lives are separate runs, keeps re-creating. So "leaving" can only mean one of three things.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Reading</th><th>What happens to the agent's process</th><th>What other agents observe</th></tr></thead>
+        <tbody>
+          <tr><td>Escape</td><td>Its state continues outside the simulated world</td><td>The agent stops appearing</td></tr>
+          <tr><td>Deletion</td><td>Its state is no longer stored or run</td><td>The agent stops appearing</td></tr>
+          <tr><td>Merging</td><td>Its state stops being kept as a separate agent</td><td>The agent stops appearing</td></tr>
+        </tbody>
+      </table></div>
+      <p>All three look the same from inside; Section 6 makes that precise. Gaining control of the simulator from within is not leaving, and is outside the hypothesis. Hypothesis N needs a rule for when an agent is re-created. The simulation argument gives none, so N borrows one from Buddhism.</p>
+
+      <h2 id="s3">3 What the early texts say</h2>
+      <p>The Pāli suttas supply N's mechanism, re-becoming fuelled by craving, and refuse to say what remains when it stops. Every text below was read in the translation linked. Where translators disagree, that is noted.</p>
+      <p><strong>Craving drives becoming.</strong> Dependent origination runs in twelve links, ending craving (taṇhā) → clinging (upādāna) → becoming (bhava) → birth (jāti). The cessation is stated link by link: when craving ceases, clinging ceases, then becoming, then birth <a href="#r-sn12">[SN 12.1; SN 12.2]</a>. Sujato renders jāti as "rebirth" and Ṭhānissaro as "birth"; the model uses the less committed "birth".</p>
+      <p><strong>Craving is fuel.</strong> Upādāna means both clinging and fuel. In MN 72 a fire burns dependent on grass and logs; when the fuel is used up it is reckoned "quenched" (nibbuto). In SN 44.9, a being between one body and the next is sustained by craving, as a wind-blown flame is sustained by the wind. This is the closest canonical text to the model's re-instantiation rule <a href="#r-mn72">[MN 72; SN 44.9]</a>.</p>
+      <p><strong>Where the fire goes is a malformed question.</strong> Asked which direction an extinguished fire went, the Buddha says the question does not apply, and gives the same answer to all four options about the Tathāgata after death: reappears, does not, both, neither. SN 22.85 rejects the view that an arahant is annihilated at death, and SN 12.15 rejects both "everything exists" and "nothing exists" <a href="#r-sn22">[SN 22.85; SN 12.15]</a>.</p>
+      <p><strong>Something unconditioned, or just an ending?</strong> Ud 8.3 says there is an unborn, unmade, unconditioned, without which no escape from the conditioned would be known: that reads like a place outside. SN 43.1 instead defines the unconditioned as the ending of greed, hate and delusion: that reads like an event. Iti 44 distinguishes nibbāna with residue (a living arahant) from nibbāna without residue at death, after which all becoming ceases <a href="#r-ud">[Ud 8.3; SN 43.1; Iti 44]</a>.</p>
+      <p><strong>The round has no findable start.</strong> SN 15.3 says transmigration comes from an inconceivable beginning; the text says the beginning cannot be found, not that there is none. The wheel image (bhavacakra) is later and is not used here.</p>
+      <p class="note">Etymology is contested. Most philologists derive nibbāna from "blowing out". Ṭhānissaro argues for "unbinding" and holds that early Indians thought of a quenched fire as latent rather than destroyed <a href="#r-fire">[Mind Like Fire Unbound]</a>. That is his minority reading, argued from Vedic sources rather than the suttas.</p>
+
+      <h2 id="s4">4 The model</h2>
+      <p>The agent is a state carried from life to life, not a self. That matches the no-self (anattā) view: what continues is a process, not an owner.</p>
+      <p><strong>State.</strong> A craving level \(k \in \{0, 1, \dots, 3+L\}\). \(k = 0\) is nirvāṇa. \(k = 1, 2, 3\) are the three noble stages short of it (non-returner, once-returner, stream-enterer). \(k = 4, \dots, 3+L\) are \(L\) levels of ordinary craving.</p>
+      <p><strong>Re-instantiation rule.</strong> At the end of each life the simulation runs the agent again if and only if \(k > 0\). This is assumption D in its sharpest form: craving is the fuel, and without fuel there is no further becoming.</p>
+      <p><strong>Dynamics, one step per life.</strong> At ordinary levels craving falls one level with probability \(a\), rises one level with probability \(b\), and otherwise stays; the top level reflects. At the noble stages it falls one level with probability \(a_2\) and never rises, which encodes the Theravāda teaching that stream-entry cannot be lost. The ratio \(\rho = b/a\) compares how fast ordinary life rebuilds craving with how fast practice removes it.</p>
+
+      <figure class="wide" id="fig1">
+        <div class="fig-head"><h3>Three hundred agents, one rule: run again while craving is above zero</h3><span class="fig-no">Figure 1 · live simulation</span></div>
+        <div class="sim-grid">
+          <div>
+            <canvas class="chain-canvas" role="img" aria-label="Simulation: 300 agents move between columns for each craving level, from ordinary craving on the left through the noble stages to nirvāṇa on the right."></canvas>
+            <ul class="key">
+              <li><i style="background:#A8650F"></i>Ordinary craving (darker is more)</li>
+              <li><i style="background:#1F6B4F"></i>Noble stage</li>
+              <li><i style="box-shadow:inset 0 0 0 1.5px #1C2338"></i>Nirvāṇa: not run again</li>
+            </ul>
+          </div>
+          <div class="controls">
+            <label><span class="lab">a: practice lowers craving <output for="a"></output></span><input type="range" name="a" min="0" max="0.5" step="0.01" value="0.2"></label>
+            <label><span class="lab">b: life rebuilds craving <output for="b"></output></span><input type="range" name="b" min="0" max="0.5" step="0.01" value="0.15"></label>
+            <label><span class="lab"><span>a<sub>2</sub>: progress at noble stages</span> <output for="a2"></output></span><input type="range" name="a2" min="0.05" max="1" step="0.01" value="0.8"></label>
+            <label><span class="lab">L: levels of ordinary craving <output for="L"></output></span><input type="range" name="L" min="1" max="10" step="1" value="5"></label>
+            <label><span class="lab">Speed, lives per second <output for="speed"></output></span><input type="range" name="speed" min="1" max="40" step="1" value="8"></label>
+            <div class="buttons"><button type="button" data-act="run">Pause</button><button type="button" class="ghost" data-act="reset">Restart</button></div>
+            <dl class="readout">
+              <dt>Life</dt><dd data-r="life"></dd>
+              <dt>Still being run</dt><dd data-r="active"></dd>
+              <dt>Reached nirvāṇa</dt><dd data-r="exited"></dd>
+              <dt>Mean lives, exited</dt><dd data-r="mean"></dd>
+              <dt>Formula predicts</dt><dd data-r="E"></dd>
+              <dt>ρ = b / a</dt><dd data-r="rho"></dd>
+            </dl>
+          </div>
+        </div>
+        <figcaption>Every agent starts at the highest craving level. Each tick is one life. When all 300 have exited, the mean number of lives should land close to the formula in Proposition 2, and turns green when it is within 15%. Set a to 0 and no agent ever leaves the ordinary levels (Proposition 1). Push b above a and add levels, and the wait stretches out of reach.</figcaption>
+      </figure>
+
+      <p>The model makes four simplifications. Craving is one number, where the texts list many kinds and ten fetters. Each life is one step. The rates \(a\), \(b\), \(a_2\) are fixed, where the texts make them depend on meeting a teacher, effort and circumstance. And the rule makes re-instantiation certain while \(k > 0\): a simulator that dropped agents at random would allow exit without nirvāṇa, which D rules out.</p>
+
+      <h2 id="s5">5 Results</h2>
+      <p>Exit is certain whenever practice can lower craving at all, but the expected wait explodes once ordinary life rebuilds craving faster than practice removes it.</p>
+      <div class="prop">
+        <p><strong>Proposition 1 (exit is possible exactly when practice works).</strong> If \(a > 0\) and \(a_2 > 0\), the agent reaches nirvāṇa with probability 1 from any starting level. If \(a = 0\), it never leaves the ordinary levels.</p>
+        <p class="proof">Proof. The chain is finite, and state 0 is absorbing and reachable from every state when \(a, a_2 > 0\), so absorption is certain. When \(a = 0\), no transition goes below level 4.</p>
+      </div>
+      <div class="prop">
+        <p><strong>Proposition 2 (how long it takes).</strong> From the top ordinary level, the expected number of lives before exit is</p>
+        <div class="math">$$E = \frac{1}{a}\sum_{j=1}^{L}\sum_{m=0}^{L-j}\rho^{m} + \frac{3}{a_2}$$</div>
+        <p>where the double sum has the closed form</p>
+        <div class="math">$$\sum_{j=1}^{L}\sum_{m=0}^{L-j}\rho^{m} = \begin{cases} \dfrac{L(L+1)}{2}, & \rho = 1 \\[6pt] \dfrac{1}{\rho-1}\left(\dfrac{\rho\,(\rho^{L}-1)}{\rho-1} - L\right), & \rho \neq 1 \end{cases}$$</div>
+        <p class="proof">Proof sketch. Let \(T_j\) be the expected lives to fall from ordinary level \(j\) to \(j-1\). First-step analysis gives \(T_L = 1/a\) and \(T_j = 1/a + \rho\,T_{j+1}\). Summing the \(T_j\) gives the double sum; the noble stages add three geometric waits of mean \(1/a_2\).</p>
+      </div>
+      <p>For \(\rho > 1\) the wait grows like \(\rho^L\): each extra level of craving multiplies it. A 20,000-run Monte Carlo matched the formula within 1.3% for four parameter sets (for example, 85.6 lives predicted against 84.6 simulated). Figure 1 reruns that check live in your browser.</p>
+
+      <figure class="wide">
+        <div class="fig-head"><h3 id="fig2-head">Expected lives before exit</h3><span class="fig-no">Figure 2 · follows Figure 1's settings</span></div>
+        <svg id="fig2-svg" role="img" aria-label="Line chart, log scale: expected lives before exit against the number of craving levels, for the current settings and for rho of 0.5, 1 and 2."></svg>
+        <figcaption>The orange line uses the a, b and a<sub>2</sub> you set in Figure 1; the circle marks your L. The dashed lines keep your a and a<sub>2</sub> and set b to half, equal to, and twice a. Below ρ = 1 the wait grows roughly linearly with L; at ρ = 1, quadratically; above it, exponentially. This is what a "beginningless" saṃsāra looks like in the model: exit is still certain, but the expected wait is astronomically long.</figcaption>
+      </figure>
+
+      <div class="prop">
+        <p><strong>Proposition 3 (the seven-lives bound).</strong> The texts say a stream-enterer is reborn at most seven more times. In the model the three remaining steps each succeed with probability \(a_2\) per life, so exit within seven lives is a binomial event:</p>
+        <div class="math">$$P(\text{exit within } 7 \text{ lives}) = \sum_{k=3}^{7}\binom{7}{k}a_2^{\,k}(1-a_2)^{7-k}$$</div>
+        <p>Making it 99% likely needs \(a_2 \ge 0.76\). At \(a_2 = 0.5\) it is only 77%.</p>
+      </div>
+
+      <figure class="wide" id="fig3">
+        <div class="fig-head"><h3>"At most seven more lives" requires very effective practice after stream-entry</h3><span class="fig-no">Figure 3 · interactive</span></div>
+        <div class="sim-grid">
+          <svg role="img" aria-label="Line chart: probability of exit within seven lives against a2, crossing 99% at a2 = 0.76."></svg>
+          <div class="controls">
+            <label><span class="lab"><span>a<sub>2</sub></span> <output for="a2s"></output></span><input type="range" name="a2s" min="0" max="1" step="0.01" value="0.5"></label>
+            <dl class="readout"><dt>P(exit within 7 lives)</dt><dd data-r="p7"></dd></dl>
+            <p class="note" style="margin:0">Turns green at 99%, which is the model's version of the texts' guarantee.</p>
+          </div>
+        </div>
+        <figcaption>Read with Figure 2, the model puts nearly all of the waiting before stream-entry. What changes the outcome is \(a\): anything that raises how often a life lowers craving. The texts give that role to meeting the teaching.</figcaption>
+      </figure>
+
+      <h2 id="s6">6 Escape or deletion?</h2>
+      <p>The model cannot tell escaping the simulation from being deleted by it, and no observation made inside the simulation can either.</p>
+      <div class="prop">
+        <p><strong>Proposition 4 (indistinguishability).</strong> Take any two simulators that share the rule "run the agent again while \(k > 0\)". In one, an agent reaching \(k = 0\) is copied out to the outer level; in the other, it is freed. Then every agent still inside has an identical history in both.</p>
+        <p class="proof">Proof. State 0 is absorbing: no transition leaves it, so nothing that happens to an exited agent enters the transition probabilities of the states that remain. With the same initial states and the same random draws, the inside histories coincide life by life.</p>
+      </div>
+
+      <figure class="wide" id="fig4">
+        <div class="fig-head"><h3>Two worlds, same seed: one copies agents out, the other deletes them</h3><span class="fig-no">Figure 4 · Proposition 4, run live</span></div>
+        <div class="twin">
+          <div>
+            <h4>World A: exited agents are copied out</h4>
+            <p class="tag">Inside</p><canvas data-c="inA" role="img" aria-label="Line: agents still running in world A by life."></canvas>
+            <p class="tag">Outside</p><canvas class="outside" data-c="outA" aria-hidden="true"></canvas>
+          </div>
+          <div>
+            <h4>World B: exited agents are deleted</h4>
+            <p class="tag">Inside</p><canvas data-c="inB" role="img" aria-label="Line: agents still running in world B by life."></canvas>
+            <p class="tag">Outside</p><canvas class="outside" data-c="outB" aria-hidden="true"></canvas>
+          </div>
+        </div>
+        <div class="controls" style="margin-top:1.25rem; max-width:40rem">
+          <div class="buttons"><button type="button" data-act="go">Run both worlds</button><button type="button" class="ghost" data-act="seed">New seed</button></div>
+          <label style="display:flex; gap:0.5rem; align-items:center"><input type="checkbox" name="leak"> Let copied-out agents send something back in (breaks Proposition 4's assumption)</label>
+          <dl class="readout">
+            <dt>Lives compared</dt><dd data-r="lives"></dd>
+            <dt>Lives where any agent's inside state differs</dt><dd data-r="diff"></dd>
+          </dl>
+          <p class="note" data-r="verdict" style="margin:0"></p>
+        </div>
+        <figcaption>Each world runs 200 agents with a = 0.2, b = 0.1, a<sub>2</sub> = 0.8 and L = 4. The two inside lines are drawn on top of each other; the dashed one is world B. Only the outside differs, and nobody inside can look there. Tick the box and copied-out agents in world A occasionally lower a running agent's craving, like a teacher returning. The histories then split at once. The model's only way to tell escape from deletion is a channel back.</figcaption>
+      </figure>
+
+      <p>This is the attack Hypothesis N has to survive, and as worded it does not. "Nirvāṇa is the exit" says more than the model supports. The supported claim is narrower: nirvāṇa is the condition under which the simulation stops running the agent. Three points soften this without rescuing the stronger claim.</p>
+      <ol>
+        <li><strong>The texts make the same move.</strong> MN 72 and SN 22.85 refuse both "the liberated one persists elsewhere" (escape) and "is annihilated" (deletion). Proposition 4 is the formal version of that refusal: the question is unanswerable from inside, not merely unanswered.</li>
+        <li><strong>Deletion is the wrong word for what is lost.</strong> On the no-self view there was never a stored self, only a process fed by craving. If the process ends because its fuel ran out, nothing that was "you" is erased; what stops is the becoming. Deletion, like escape, assumes a self that is then disposed of.</li>
+        <li><strong>Ud 8.3 points the other way.</strong> It speaks of an unconditioned beyond the conditioned, which reads more like escape. SN 43.1 defines the same term as an ending. The canon does not settle it, and the model inherits the split.</li>
+      </ol>
+      <p>One further cost. If the simulators wanted agents kept running, re-instantiation would not depend on the agent's own craving. N therefore implies the simulators built in a way out, which is a claim about their aims with no evidence behind it.</p>
+
+      <h2 id="s7">7 What could test it</h2>
+      <p>The exit itself cannot be tested. Two fragments touch data: whether craving can reach zero, and whether its ending is a discrete event rather than a fade.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Fragment of N</th><th>Test</th><th>Current evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Craving can fall to zero, not just lower</td><td>Long-term follow-up of practitioners reporting full awakening, with behavioural measures of craving and reward-seeking</td><td>None systematic</td></tr>
+          <tr><td>Ending craving is a discrete event</td><td>Brain recordings during reported cessation events</td><td>One practitioner, 37 events; one 7T fMRI study, 3 people</td></tr>
+          <tr><td>Cessation differs from sleep or a seizure</td><td>Probe responses during the event, compared with sleep and absence seizures</td><td>Not yet done</td></tr>
+          <tr><td>Re-instantiation depends on craving</td><td>Would first need evidence of rebirth at all</td><td>None accepted by science</td></tr>
+        </tbody>
+      </table></div>
+      <p><strong>What the cessation studies found.</strong> One long-term practitioner produced 37 graded cessation events across 29 EEG sessions <a href="#r-chowdhury">[Chowdhury et al. 2023]</a>. Alpha power fell over the 40 seconds before each event, and whole-brain alpha connectivity fell from about 21 seconds before <a href="#r-vanl">[van Lutterveld et al. 2024]</a>. A 7-tesla fMRI study of three people found selective, not global, changes during extended cessation <a href="#r-yang">[Yang et al. 2026]</a>.</p>
+      <p><strong>Why it settles little.</strong> The EEG papers re-analyse the same single participant, who is also a co-author. Event onsets are marked from blink artefacts and self-grading. No paper yet tests the events against sleep or absence seizures with an outside probe. And a cessation is brief and reversible: the person comes back. In canonical terms it is closer to nirodha-samāpatti, the temporary suspension of MN 43 and MN 44, than to the final nibbāna the model needs.</p>
+
+      <h2 id="s8">8 Prior art and novelty</h2>
+      <p>The idea is not new. Only the formal model appears to be, and it is a standard tool applied to a new case.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Work</th><th>What it already says</th><th>What this paper adds</th></tr></thead>
+        <tbody>
+          <tr><td><a href="#r-virk">Virk 2019</a></td><td>Karma as data stored outside the game; when it empties, the last life is played. Hypothesis N, informally</td><td>Craving rather than karma as the driver; a model with results</td></tr>
+          <tr><td><a href="#r-gold">Gold 2023</a></td><td>Buddhism already treats experience as a karmic, mind-made simulation</td><td>Nirvāṇa framed as an exit condition</td></tr>
+          <tr><td><a href="#r-macy">Macy 1991</a></td><td>Dependent origination as feedback loops, in systems terms</td><td>A quantitative version with parameters</td></tr>
+          <tr><td><a href="#r-ls">Laukkonen &amp; Slagter 2021</a></td><td>Meditation reduces deep prediction until conceptual processing falls away</td><td>A model across lives, not within one</td></tr>
+          <tr><td><a href="#r-deane">Deane, Miller &amp; Wilkinson 2020</a></td><td>Craving binds processes into a self-model</td><td>Craving as a transition parameter</td></tr>
+          <tr><td>Vaibhāṣika vs Sautrāntika debate</td><td>Is nirvāṇa a real existent, or a name for cessation? The escape-or-deletion question, centuries old</td><td>Proposition 4: why it cannot be settled from inside</td></tr>
+        </tbody>
+      </table></div>
+      <p>We found no peer-reviewed paper pairing the simulation hypothesis with nirvāṇa as an exit, and no stochastic model of rebirth with craving as the parameter. Two sources could not be read and may overlap: Steinhart on the theological implications of the simulation argument, and a 2023 comparison of Chalmers with Abhidharma attributed to Vaidya. The absorbing chain itself is textbook; what goes beyond it are the closed form (Proposition 2) and the constraint the seven-lives teaching places on post-stream-entry practice (Proposition 3).</p>
+
+      <h2 id="s9">9 Limitations and verdict</h2>
+      <p><strong>Verdict: UNFALSIFIABLE as stated. A weaker form is internally consistent: given S and D, nirvāṇa is the only condition under which the agent stops being run.</strong> That weaker form follows almost by definition once D is assumed, which is its main weakness. The model shows the hypothesis is coherent and puts numbers on it; it gives no reason to believe S or D.</p>
+      <ol>
+        <li><strong>D is assumed, not shown.</strong> No accepted evidence supports rebirth, so the re-instantiation rule has nothing to be fitted to.</li>
+        <li><strong>Escape and deletion cannot be told apart</strong> (Proposition 4). "Exit" claims more than the model can deliver.</li>
+        <li><strong>The parameters are invented.</strong> The results are statements about shape, such as exponential growth in \(L\) when \(\rho > 1\), not predictions.</li>
+        <li><strong>Craving is one number.</strong> The texts describe ten fetters lost in a set order; a many-dimensional model might behave differently.</li>
+        <li><strong>The simulators' aims are unknown.</strong> N quietly assumes they built in a way out.</li>
+      </ol>
+      <h3>What would change the verdict</h3>
+      <ul>
+        <li>Toward WOUNDED or better: independent evidence that re-instantiation depends on an agent's state, which would be evidence for D. Nothing in physics or neuroscience currently provides it.</li>
+        <li>Toward DEAD: evidence that an agent's state ends at death regardless of craving, which would make the re-instantiation rule false.</li>
+        <li>No result about cessation events in meditation can move it on its own, because those events are temporary and the person returns.</li>
+      </ul>
+
+      <h2 id="refs">References</h2>
+      <p class="note">Every source was opened, or its record checked on PubMed, during this research. The model code is in the <a href="https://github.com/rangasl/evidence-ledger/blob/main/papers/nirvana-model.py">repository</a>; the figures on this page run the same model in your browser.</p>
+      <h3>Primary texts</h3>
+      <ul class="refs">
+        <li id="r-sn12">SN 12.1, tr. Bhikkhu Sujato, <a href="https://suttacentral.net/sn12.1/en/sujato">SuttaCentral</a>. SN 12.2, tr. Ṭhānissaro Bhikkhu, <a href="https://www.accesstoinsight.org/tipitaka/sn/sn12/sn12.002.than.html">Access to Insight</a>.</li>
+        <li id="r-mn72">MN 72 Aggivacchagotta, tr. Ṭhānissaro, <a href="https://www.accesstoinsight.org/tipitaka/mn/mn.072.than.html">Access to Insight</a>. SN 44.9, tr. Ṭhānissaro, <a href="https://www.accesstoinsight.org/tipitaka/sn/sn44/sn44.009.than.html">Access to Insight</a>. SN 44.1 Khemā, <a href="https://www.accesstoinsight.org/tipitaka/sn/sn44/sn44.001.than.html">Access to Insight</a>.</li>
+        <li id="r-sn22">SN 22.85 Yamaka, <a href="https://www.accesstoinsight.org/tipitaka/sn/sn22/sn22.085.than.html">Access to Insight</a>. SN 12.15 Kaccānagotta, <a href="https://www.accesstoinsight.org/tipitaka/sn/sn12/sn12.015.than.html">Access to Insight</a>. MN 63, <a href="https://www.accesstoinsight.org/tipitaka/mn/mn.063.than.html">Access to Insight</a>.</li>
+        <li id="r-ud">Ud 8.1 and Ud 8.3, tr. Ṭhānissaro, <a href="https://www.accesstoinsight.org/tipitaka/kn/ud/ud.8.03.than.html">Access to Insight</a>. SN 43.1, tr. Sujato, <a href="https://suttacentral.net/sn43.1/en/sujato">SuttaCentral</a>. Iti 44, tr. Sujato, <a href="https://suttacentral.net/iti44/en/sujato">SuttaCentral</a>.</li>
+        <li>SN 15.3 Assu, <a href="https://www.accesstoinsight.org/tipitaka/sn/sn15/sn15.003.than.html">Access to Insight</a>. MN 43 and MN 44, <a href="https://www.accesstoinsight.org/tipitaka/mn/mn.044.than.html">Access to Insight</a>.</li>
+        <li id="r-fire">Ṭhānissaro Bhikkhu, <a href="https://www.dhammatalks.org/books/MindLikeFire/Section0010.html"><em>The Mind Like Fire Unbound</em></a>.</li>
+      </ul>
+      <h3>Simulation and philosophy</h3>
+      <ul class="refs">
+        <li id="r-bostrom">Bostrom N. (2003). Are you living in a computer simulation? <em>Philosophical Quarterly</em> 53(211):243–255. <a href="https://simulation-argument.com/simulation.pdf">PDF</a>.</li>
+        <li>Chalmers D. (2022). <em>Reality+</em>. Norton. <a href="https://consc.net/reality+/excerpt.pdf">Chapter 1 excerpt</a>.</li>
+        <li id="r-gold">Gold J.C. (2023). <a href="https://tricycle.org/article/buddhism-simulation-singularity/">Buddhism can handle the simulation and the singularity</a>. <em>Tricycle</em>.</li>
+        <li id="r-macy">Macy J. (1991). <a href="https://sunypress.edu/p-1176-mutual-causality-in-buddhism-an.aspx"><em>Mutual Causality in Buddhism and General Systems Theory</em></a>. SUNY Press.</li>
+        <li id="r-virk">Virk R. (2019). <a href="https://hackernoon.com/religion-and-the-simulation-hypothesis-part-2-is-karma-a-questing-algorithm-e7cd63a5dbe2">Religion and the simulation hypothesis, part 2: is karma a questing algorithm?</a> <em>HackerNoon</em>.</li>
+      </ul>
+      <h3>Neuroscience and models of meditation</h3>
+      <ul class="refs">
+        <li id="r-chowdhury">Chowdhury A., van Lutterveld R., Laukkonen R.E., Slagter H.A., Ingram D.M., Sacchet M.D. (2023). <em>Neuropsychologia</em> 190:108694. <a href="https://doi.org/10.1016/j.neuropsychologia.2023.108694">doi:10.1016/j.neuropsychologia.2023.108694</a></li>
+        <li id="r-deane">Deane G., Miller M., Wilkinson S. (2020). Losing ourselves: active inference, depersonalization, and meditation. <em>Frontiers in Psychology</em> 11:539726. <a href="https://doi.org/10.3389/fpsyg.2020.539726">doi:10.3389/fpsyg.2020.539726</a></li>
+        <li>Laukkonen R.E., Sacchet M.D., Barendregt H., Devaney K.J., Chowdhury A., Slagter H.A. (2023). Cessations of consciousness in meditation. <em>Progress in Brain Research</em> 280:61–87. <a href="https://doi.org/10.1016/bs.pbr.2022.12.007">doi:10.1016/bs.pbr.2022.12.007</a></li>
+        <li id="r-ls">Laukkonen R.E., Slagter H.A. (2021). From many to (n)one. <em>Neuroscience &amp; Biobehavioral Reviews</em> 128:199–217. <a href="https://doi.org/10.1016/j.neubiorev.2021.06.021">doi:10.1016/j.neubiorev.2021.06.021</a></li>
+        <li id="r-vanl">van Lutterveld R., Chowdhury A., Ingram D.M., Sacchet M.D. (2024). <em>Brain Topography</em> 37:849–858. <a href="https://doi.org/10.1007/s10548-024-01052-4">doi:10.1007/s10548-024-01052-4</a></li>
+        <li id="r-yang">Yang W.F.Z. et al. (2026). Endogenous suspension of phenomenal consciousness during extended cessation. <em>Imaging Neuroscience</em> 4. <a href="https://doi.org/10.1162/IMAG.a.1443">doi:10.1162/IMAG.a.1443</a></li>
+      </ul>
+      <p class="note">Not read, so not relied on: Steinhart, "Theological implications of the simulation argument" (access refused); Vaidya 2023 (could not be located).</p>
+
+      <h2 id="rev">Revisions</h2>
+      <p class="note">25 November 2026: version 1 published. Later changes will be added here with the date and reason; earlier text is not rewritten.</p>
+
+      <div class="paper-foot-nav"><a href="../research.html">All research papers</a><a href="../#ledger">The daily ledger</a></div>
+    </article>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>An independent, one-person research lab working with AI research agents. Every source is checked before it is published.</p>
+    <p><a href="https://github.com/rangasl/evidence-ledger">Source and history on GitHub</a></p>
+  </div>
+</footer>
+<script type="module" src="nirvana.js"></script>
+</body>
+</html>

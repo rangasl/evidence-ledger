@@ -1,0 +1,17 @@
+{
+  "papers": [
+    {
+      "id": "R01",
+      "slug": "nirvana-exit",
+      "date": "2026-11-25",
+      "status": "Working paper, version 1",
+      "title": "Nirvāṇa as an exit condition",
+      "subtitle": "A formal model of liberation under the simulation hypothesis",
+      "authors": "Ranga, with Claude research agents",
+      "verdict": "UNFALSIFIABLE",
+      "summary": "If we are simulated agents and craving is what keeps us being run, nirvāṇa is coherently the one exit. But escape and deletion look identical from inside, so the hypothesis cannot be tested as stated.",
+      "file": "papers/nirvana-exit.html",
+      "figures": 4
+    }
+  ]
+}

@@ -17,6 +17,7 @@
     <a class="brand" href="./">Evidence Ledger</a>
     <nav aria-label="Main">
       <a href="#ledger">Ledger</a>
+      <a href="research.html">Research</a>
       <a href="#method">Method</a>
       <a href="#next">Up next</a>
       <a href="https://github.com/rangasl/evidence-ledger" id="gh">GitHub</a>
@@ -82,6 +83,16 @@
           <tbody id="ledger-rows"></tbody>
         </table>
       </div>
+    </div>
+  </section>
+
+  <section class="band home-papers" id="research" aria-labelledby="research-h">
+    <div class="wrap band-grid">
+      <div>
+        <h2 id="research-h">Research papers</h2>
+        <p class="lede">Longer work: a hypothesis, a formal model, simulations you can run, and a verdict. <a href="research.html">All papers</a>.</p>
+      </div>
+      <div id="paper-latest"></div>
     </div>
   </section>
 
@@ -164,6 +175,16 @@ async function main() {
     <tr><td class="num">${d.day}</td><td class="num hide-sm">${d.date}</td>
     <td><a href="${entryUrl(d)}">${esc(d.title)}</a></td>
     <td class="v" data-v="${d.verdict}">${label(d.verdict)}</td></tr>`).join('');
+
+  const pp = await (await fetch('papers.json')).json().catch(() => ({ papers: [] }));
+  const lp = pp.papers.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
+  if (lp) document.getElementById('paper-latest').innerHTML = `
+    <article class="paper-link" data-v="${lp.verdict}">
+      <p class="meta">${esc(lp.id)} · ${esc(lp.status)} · ${label(lp.verdict)}</p>
+      <h3><a href="${esc(lp.file)}">${esc(lp.title)}: ${esc(lp.subtitle.charAt(0).toLowerCase() + lp.subtitle.slice(1))}</a></h3>
+      <p>${esc(lp.summary)}</p>
+      <a class="read" href="${esc(lp.file)}">Read the paper and run the simulations</a>
+    </article>`;
 
   const md = await (await fetch('BACKLOG.md')).text();
   const queued = md.split('\n').filter(l => /\|\s*QUEUED\s*\|\s*$/.test(l)).slice(0, 5)
