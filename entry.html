@@ -34,6 +34,10 @@ async function main() {
   const date = new URLSearchParams(location.search).get('day');
   const { days } = await (await fetch('ledger.json')).json();
   const d = days.find(x => x.date === date);
+  if (d && d.date > new Date().toLocaleDateString('en-CA')) {
+    document.getElementById('body').innerHTML = `<p>This entry is published on ${esc(d.date)}. <a href="./#ledger">See the verdicts so far</a>.</p>`;
+    return;
+  }
   if (!d) {
     document.getElementById('body').innerHTML = '<p>There is no entry for that date. <a href="./#ledger">See all verdicts</a>.</p>';
     return;

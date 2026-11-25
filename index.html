@@ -159,7 +159,8 @@ function tally(track, days) {
 }
 
 async function main() {
-  const { days } = await (await fetch('ledger.json')).json();
+  const today = new Date().toLocaleDateString('en-CA');
+  const days = (await (await fetch('ledger.json')).json()).days.filter(d => d.date <= today);
   tally('SIM', days); tally('FW', days);
 
   const last = days[days.length - 1];
