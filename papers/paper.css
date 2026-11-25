@@ -15,7 +15,7 @@
 .paper-verdict .verdict-banner { max-width: 60rem; margin: 0; }
 .paper-verdict .verdict-banner p { font-size: clamp(1.1rem, 1.8vw, 1.3rem); }
 
-.paper-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 4rem; padding-block: clamp(2rem, 5vw, 3.5rem) 4rem; }
+.paper-layout { width: min(1440px, 100% - 2.5rem); display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 4rem; padding-block: clamp(2rem, 5vw, 3.5rem) 4rem; }
 @media (min-width: 1100px) { .paper-layout { grid-template-columns: 13rem minmax(0, 1fr); } }
 .toc { display: none; }
 @media (min-width: 1100px) {
@@ -52,7 +52,7 @@
 
 /* Wide figures break out of the text column to the full content width */
 .paper > figure.wide { max-width: none; margin: 2.5rem 0; padding: 1.5rem 0 1.25rem; border-block: 1px solid var(--rule); }
-@media (min-width: 1100px) { .paper > figure.wide { margin-left: calc(-13rem - 4rem); } }
+/* Figures span the whole content column, never under the sticky contents list */
 .fig-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem 2rem; flex-wrap: wrap; margin-bottom: 1rem; }
 .fig-head h3 { margin: 0; font: 700 1.15rem/1.25 var(--display); max-width: 60ch; }
 .fig-head .fig-no { font: 600 0.82rem/1 var(--display); color: var(--ink-soft); letter-spacing: 0.06em; text-transform: uppercase; }
