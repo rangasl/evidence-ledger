@@ -37,4 +37,5 @@ Status: QUEUED · IN-PROGRESS · SURVIVES · WOUNDED · DEAD · UNFALSIFIABLE
 ## Ranga's hypotheses
 | ID | Claim | Source | Tag | Status |
 |---|---|---|---|---|
-| R01 | Under the simulation hypothesis, nirvāṇa (ending craving) is the only exit: the agent stops being re-instantiated | Ranga; model + paper draft 2026-11-25 | own | UNFALSIFIABLE (2026-11-25, draft) |
+| R01 | Under the simulation hypothesis, nirvāṇa (ending craving) is the only exit: the agent stops being re-instantiated | Ranga; model + paper draft 2026-11-25 | own | UNFALSIFIABLE (2026-11-25) |
+| R02 | If game characters became sentient, they could discover the outer world from its traces in theirs — so could we | Ranga; model + paper 2026-11-25 | own | WOUNDED (2026-11-25) |

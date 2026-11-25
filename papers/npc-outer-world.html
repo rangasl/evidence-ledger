@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The NPC's problem — Evidence Ledger Research</title>
+<meta name="description" content="If the characters in an open-world game became sentient, could they discover the world that runs them? A formal model with interactive simulations. Verdict: wounded.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../site.css?v=2">
+<link rel="stylesheet" href="paper.css?v=3">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.querySelector('.paper'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]})"></script>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../">Evidence Ledger</a>
+    <nav aria-label="Main">
+      <a href="../#ledger">Ledger</a>
+      <a href="../research.html" aria-current="page">Research</a>
+      <a href="../#method">Method</a>
+      <a href="https://github.com/rangasl/evidence-ledger">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="paper-hero">
+    <div class="wrap">
+      <p class="kicker"><a href="../research.html">Research</a> · R02 · Working paper, version 1 · follows <a href="nirvana-exit.html">R01</a></p>
+      <h1>The NPC's problem</h1>
+      <p class="sub">If the characters in a game became sentient, could they discover the world that runs them?</p>
+      <p class="byline"><span><b>Ranga</b>, with Claude research agents</span><span>25 November 2026</span><span>3 interactive figures</span></p>
+    </div>
+    <div class="embers">
+      <canvas id="hero-city" aria-hidden="true"></canvas>
+      <p>A small city of agents. One of them is steered from outside. From up here they look the same.</p>
+    </div>
+    <div class="wrap paper-verdict">
+      <div class="verdict-banner" data-v="WOUNDED">
+        <span class="stamp" data-v="WOUNDED">Wounded</span>
+        <p>A sentient NPC could find the outer world only through its leaks, and only if it knows what kind of leak to look for. Every leak our own world has been searched for has come back empty, and a world built not to leak can never be found from inside.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap paper-layout">
+    <nav class="toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#abstract">Abstract</a></li>
+        <li><a href="#s1">1 The question</a></li>
+        <li><a href="#s2">2 How a game leaks</a></li>
+        <li><a href="#s3">3 The model</a></li>
+        <li><a href="#s4">4 Results</a></li>
+        <li><a href="#s5">5 Despawning and permanence</a></li>
+        <li><a href="#s6">6 Our world's leak record</a></li>
+        <li><a href="#s7">7 The strongest attack</a></li>
+        <li><a href="#s8">8 If they feel what we feel</a></li>
+        <li><a href="#s9">9 Verdict</a></li>
+        <li><a href="#refs">References</a></li>
+      </ol>
+    </nav>
+
+    <article class="paper">
+      <div class="abstract">
+        <h2 id="abstract">Abstract</h2>
+        <p>Suppose the characters in an open-world game became sentient. Could they work out, from inside, that a world of players and developers exists? We model a resident as a Bayesian observer who scores every agent's choices against the city's own rules. A player-controlled agent that acts on outside information with probability \(\lambda\) is unmasked after about \(1/\lambda^2\) observed choices. Rarity barely matters: a player hidden among a billion agents takes only about five times longer to find than one among two. Three things defeat detection. The leak can be zero. The resident can look for the wrong kind of leak: one tuned to the wrong leak size never converges when the true leak is small. And anomalies can always be absorbed into new in-world physics. Applied to our own world, every leak that has been searched for has come back empty: player-like inputs to brains, drifting constants, lattice artefacts and vanishing matter. The claim survives only in a weaker form. An outer world is detectable from inside to exactly the extent that it leaks, and ours, if it exists, does not leak at current precision.</p>
+      </div>
+
+      <h2 id="s1">1 The question</h2>
+      <p><a href="nirvana-exit.html">Paper R01</a> ended on a result. From inside a simulation, being copied out and being deleted look the same, unless something flows back. This paper asks the converse question: what would something flowing back look like to the people inside?</p>
+      <p>The setting is the director's thought experiment. Take an open-world crime game of the kind everyone knows: a city, traffic, pedestrians, a player. Now suppose the pedestrians became intelligent and felt what we feel. <strong>Hypothesis R02</strong>: such beings could discover the outer world from inside, because that world leaves traces in theirs. By analogy, we could discover ours.</p>
+      <p>We split the hypothesis into a question the model can answer (can they detect it?) and one it cannot (does it matter that they feel?). Section 8 returns to the second.</p>
+
+      <h2 id="s2">2 How a game leaks</h2>
+      <p>A game world is run cheaply, for an audience outside it. That produces four kinds of trace a resident could, in principle, notice.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Leak</th><th>Why the game has it</th><th>What a resident would see</th><th>Our world's analogue</th></tr></thead>
+        <tbody>
+          <tr><td>Player avatars</td><td>Someone outside steers one character</td><td>An agent that acts on facts nobody inside could know</td><td>A brain acting on inputs physics cannot account for</td></tr>
+          <tr><td>Despawning</td><td>Saving memory and processing out of view</td><td>Things vanish or change when unobserved</td><td>Matter or records not persisting</td></tr>
+          <tr><td>Saves and reloads</td><td>Players retry</td><td>Repeated stretches of time, contradictory memories</td><td>None measurable: a reload that wipes memory leaves no trace</td></tr>
+          <tr><td>Patches</td><td>Developers change the rules</td><td>Laws that change on a date</td><td>Drifting physical constants</td></tr>
+        </tbody>
+      </table></div>
+      <p>The cleanest of the four is the first, because it can be stated as a statistical test. The model focuses on it.</p>
+
+      <h2 id="s3">3 The model</h2>
+      <p><strong>The city.</strong> Agents move along a grid of streets. At each junction a native agent picks one of the exits it did not arrive by, at random. That is the city's law of motion, and a resident can know it.</p>
+      <p><strong>The hidden fact.</strong> Coins appear one at a time at random junctions. Where the next coin will appear is fixed in advance and stored in the game file, but is not visible anywhere in the city.</p>
+      <p><strong>The player.</strong> One agent is steered from outside. At each junction, with probability \(\lambda\) (the <em>leak</em>), it takes an exit that brings it closer to where the next coin will appear. Otherwise it turns at random like everyone else. With \(\lambda = 0\) it is perfectly disguised.</p>
+      <p><strong>The resident.</strong> Once a coin appears, a resident can look back at every turn made since the last one and ask whether it brought the agent closer to that spot. If a fraction \(p_0\) of the available exits did, a native agent turned closer with probability \(p_0\), and a leaking player with probability \(p_1 = \lambda + (1-\lambda)p_0\). The resident keeps a running log-odds for every agent and flags any that pass 99 : 1. This is Wald's sequential probability ratio test <a href="#r-wald">[Wald 1945]</a>.</p>
+
+      <figure class="wide" id="fig1">
+        <div class="fig-head"><h3>A resident scores every agent's turns, and the outside-steered one climbs</h3><span class="fig-no">Figure 1 · live simulation</span></div>
+        <div class="sim-grid">
+          <div>
+            <canvas data-c="city" class="chain-canvas" tabindex="0" role="img" aria-label="Top-down grid city with moving agents, a coin, and optionally the hidden next coin."></canvas>
+            <canvas data-c="bars" style="display:block;width:100%;height:190px;margin-top:0.75rem" role="img" aria-label="Bar chart: log-odds that each agent is steered from outside."></canvas>
+            <ul class="key">
+              <li><i style="background:#1C2338"></i>Native agent</li>
+              <li><i style="background:#A8650F"></i>Player (when revealed)</li>
+              <li><i style="background:#1F6B4F"></i>Coin</li>
+              <li><i style="box-shadow:inset 0 0 0 2px #5A5A8C"></i>Next coin, visible only from outside</li>
+            </ul>
+          </div>
+          <div class="controls">
+            <label><span class="lab"><span>λ: leak, share of turns steered from outside</span> <output for="lam"></output></span><input type="range" name="lam" min="0" max="1" step="0.01" value="0.6"></label>
+            <label style="display:flex;gap:0.5rem;align-items:center"><input type="checkbox" name="reveal" checked> Reveal which agent is the player</label>
+            <label style="display:flex;gap:0.5rem;align-items:center"><input type="checkbox" name="outer"> Show the outer world's view</label>
+            <div class="buttons"><button type="button" data-act="run">Pause</button><button type="button" class="ghost" data-act="fast">Speed ×4</button><button type="button" class="ghost" data-act="reset">Restart</button></div>
+            <div class="buttons"><button type="button" class="ghost" data-act="wheel">Take the wheel</button></div>
+            <p class="note" data-r="wheelnote" hidden style="margin:0">You are the outer world now. Steer the orange agent with the arrow keys or WASD. Head for the dashed circle and watch the resident catch you; drive aimlessly and it won't.</p>
+            <dl class="readout">
+              <dt>Player's scored turns</dt><dd data-r="dec"></dd>
+              <dt>Player's log-odds</dt><dd data-r="llr"></dd>
+              <dt>Flagged at 99 : 1</dt><dd data-r="det"></dd>
+              <dt>Natives wrongly flagged</dt><dd data-r="false"></dd>
+              <dt>Expected for this resident</dt><dd data-r="pred"></dd>
+            </dl>
+          </div>
+        </div>
+        <figcaption>The resident does not know λ; it assumes 0.3. Set λ to 0.6 and the player is flagged after a few dozen turns. Lower it to 0.2 and detection takes hundreds. Below about 0.15 this resident never flags the player at all, although the player is still leaking (Proposition 3). Natives drift downward, so they are rarely flagged by mistake.</figcaption>
+      </figure>
+
+      <h2 id="s4">4 Results</h2>
+      <div class="prop">
+        <p><strong>Proposition 1 (the inverse-square law of leaks).</strong> A resident who knows the leak size needs, on average, about</p>
+        <div class="math">$$n^{*} \approx \frac{\ln\!\left(99\cdot\frac{1-f}{f}\right)}{D_{\mathrm{KL}}\!\left(p_1 \,\|\, p_0\right)} \;\approx\; \frac{2\,p_0\,\ln 99}{(1-p_0)\,\lambda^{2}} \quad (\text{small } \lambda,\ f = \tfrac12)$$</div>
+        <p>observed choices to reach 99 : 1, where \(f\) is the prior share of agents that are players. Halving the leak quadruples the work.</p>
+        <p class="proof">Proof sketch. Each scored choice adds an independent log-likelihood ratio with mean \(D_{\mathrm{KL}}(p_1\|p_0)\). Wald's approximation divides the required log-odds by that drift. Expanding the Bernoulli divergence for small \(\lambda\) gives the quadratic. A 4,000-run Monte Carlo gave 36.5, 103.3 and 938.7 turns for \(\lambda\) = 0.5, 0.3 and 0.1, against 35.1, 100.5 and 917.5 predicted. The small excess is the usual overshoot of a sequential test.</p>
+      </div>
+      <div class="prop">
+        <p><strong>Proposition 2 (rarity is cheap).</strong> The prior enters only through \(\ln\frac{1-f}{f}\). A player hidden among a billion agents (\(f = 10^{-9}\)) needs about 5.5 times as many observations as one among two, not a billion times as many.</p>
+      </div>
+      <div class="prop">
+        <p><strong>Proposition 3 (looking for the wrong leak).</strong> A resident who assumes leak \(\lambda_A\) but faces true leak \(\lambda\) gains evidence only while</p>
+        <div class="math">$$p_1\,\ln\frac{\lambda_A + (1-\lambda_A)p_0}{p_0} + (1-p_1)\ln(1-\lambda_A) > 0 .$$</div>
+        <p>With \(\lambda_A = 0.3\) and \(p_0 = \tfrac12\), that needs \(\lambda > 0.15\). For smaller leaks the evidence drifts toward "native" forever, although the leak is real.</p>
+      </div>
+      <div class="prop">
+        <p><strong>Proposition 4 (no leak, no finding).</strong> If \(\lambda = 0\), the player's choices have the same distribution as a native's, every likelihood ratio is 1, and no number of observations separates "steered from outside" from "native". The outer-world hypothesis is then unfalsifiable from inside, the same conclusion R01 reached about exit.</p>
+      </div>
+
+      <figure class="wide">
+        <div class="fig-head"><h3 id="fig2-head">How long detection takes</h3><span class="fig-no">Figure 2 · follows Figure 1</span></div>
+        <svg id="fig2-svg" role="img" aria-label="Log-log chart: turns needed to reach 99 to 1 against leak size, for players one in two, one in a thousand, and one in a billion."></svg>
+        <figcaption>All three lines have slope −2 at small leaks: the inverse-square law. The gap between "one in two" and "one in a billion" is a constant factor of about five. The size of the leak decides whether the outer world can be found; how rare its avatars are hardly matters. The circle is Figure 1's current setting, for an ideal resident who knows λ.</figcaption>
+      </figure>
+
+      <h2 id="s5">5 Despawning and object permanence</h2>
+      <p>Engines routinely skip work out of view: Unreal Engine culls what lies outside the camera's field of view or beyond a set distance <a href="#r-unreal">[Epic Games]</a>, and large games simulate off-screen characters at lower detail <a href="#r-gdc">[Smrček, GDC]</a>. Campbell and colleagues proposed testing our world for the same shortcut <a href="#r-campbell">[Campbell et al. 2017]</a>.</p>
+      <p>The second leak is cheaper to test. If a simulator stops storing an object while nobody looks, with probability \(d\) per look-away, a resident who checks \(k\) times catches it with probability \(1-(1-d)^k\). For 99% confidence that needs \(k \approx 4.6/d\) checks. A careful simulator keeps everything (\(d = 0\)), and then no number of checks will find anything.</p>
+      <figure class="wide" id="fig3">
+        <div class="fig-head"><h3>Look away, look back: a careless simulator gets caught, a careful one never does</h3><span class="fig-no">Figure 3 · interactive</span></div>
+        <div class="sim-grid">
+          <canvas style="height:260px" role="img" aria-label="A resident turns away from a parked car and back; sometimes the car is gone."></canvas>
+          <div class="controls">
+            <label><span class="lab"><span>d: chance the car is dropped while unobserved</span> <output for="d"></output></span><input type="range" name="d" min="0" max="0.5" step="0.005" value="0.05"></label>
+            <div class="buttons"><button type="button" data-act="check">Look away and back</button><button type="button" class="ghost" data-act="auto">Check repeatedly</button></div>
+            <dl class="readout">
+              <dt>Checks made</dt><dd data-r="k"></dd>
+              <dt>Times the car was gone</dt><dd data-r="seen"></dd>
+              <dt>Checks for 99% confidence</dt><dd data-r="need"></dd>
+            </dl>
+          </div>
+        </div>
+        <figcaption>Games drop distant cars and pedestrians to save work. Our world's equivalent check runs constantly and at enormous scale: every conserved quantity, every experiment repeated after the lab was empty overnight. No dropped state has been found. Quantum indeterminacy is sometimes offered as "rendering on demand", but it is lawful, reproducible and the same everywhere, which is how physics behaves, not how a cost-saving shortcut behaves (claim SIM04 in the ledger tests this).</figcaption>
+      </figure>
+
+      <h2 id="s6">6 Our world's leak record</h2>
+      <p>Each game leak has a real-world search behind it. All have come back empty so far.</p>
+      <div class="table-wrap"><table id="leak-table">
+        <thead><tr><th>Leak</th><th>Search</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>Player inputs to brains</td><td>The laws governing everyday phenomena, chemistry and biology included, are argued to be completely known within their tested range, so a hidden input steering neurons would need new physics that experiments have not seen <a href="#r-carroll">[Carroll 2021]</a></td><td>No unexplained input found</td></tr>
+          <tr><td>Patches to the rules</td><td>Atomic clocks compared over a year found the fine-structure constant's drift to be (−1.6 ± 2.3) × 10<sup>−17</sup> per year, consistent with zero (a preliminary constraint) <a href="#r-rosenband">[Rosenband et al. 2008]</a></td><td>No drift found</td></tr>
+          <tr><td>A coarse grid underneath</td><td>A lattice universe would leave a direction-dependent cutoff in the highest-energy cosmic rays <a href="#r-beane">[Beane, Davoudi &amp; Savage 2014]</a></td><td>Proposed test; the cosmic-ray spectrum already bounds the lattice spacing, and no lattice signal has been reported</td></tr>
+          <tr><td>Rendering only when observed</td><td>Loophole-free Bell tests show quantum indefiniteness is lawful and reproducible <a href="#r-hensen">[Hensen et al. 2015]</a></td><td>Behaves like physics, not a shortcut</td></tr>
+        </tbody>
+      </table></div>
+      <p>Read through Proposition 1, these are bounds on \(\lambda\) for our world. Any outer world either leaks below the precision of these searches, or leaks along a channel nobody has thought to test (Proposition 3), or does not exist.</p>
+
+      <h2 id="s7">7 The strongest attack</h2>
+      <p>A separate Prosecutor agent, working without seeing the model, argued against the hypothesis. Its strongest points, most damaging first:</p>
+      <ol>
+        <li><strong>Wrong reference class.</strong> Games leak because they are cheap and built for an outside audience. A host able to run feeling beings in physics as rich as ours has already paid for consistency far beyond any game. Reasoning from the leakiest simulations we know to "simulations leak" assumes what it needs to prove.</li>
+        <li><strong>Selection.</strong> If detected simulations are stopped, rolled back or edited, then the observers still around to ask are mostly in ones that hide well. Bostrom made the same point in 2003: a simulator could edit the states of brains that noticed an anomaly, or skip back a few seconds and rerun <a href="#r-bostrom">[Bostrom 2003]</a>. A reload that wipes memory leaves no trace by definition.</li>
+        <li><strong>Anomalies get absorbed.</strong> A found anomaly becomes new physics, as dark matter and neutrino mass did. Nothing marks a glitch as a designer's rather than nature's. Even a real hit would support "more physics" before it supported "players".</li>
+        <li><strong>You must know what you are looking for.</strong> Telling a player from a rare native needs the likelihood of outside-steered behaviour, which is exactly what an insider lacks. Proposition 3 makes this precise.</li>
+        <li><strong>"They feel" adds nothing testable.</strong> A non-sentient script reading the same game logs would find the same traces. Feeling is a separate claim, about consciousness and ethics.</li>
+      </ol>
+      <p>The model concedes all five. The paper keeps only what survives them.</p>
+
+      <h2 id="s8">8 If they feel what we feel</h2>
+      <p>Detection does not depend on whether the NPCs feel, but everything else does. If they do, the game stops being a game. Respawning a pedestrian becomes re-instantiation, the mechanism R01 modelled. Violence for entertainment becomes harm done to someone. Philosophers have argued that beings with experiences like ours deserve moral consideration whatever they run on <a href="#r-sg">[Schwitzgebel &amp; Garza 2015]</a>, and that creating artificial beings able to suffer should wait until we understand it <a href="#r-metzinger">[Metzinger 2021]</a>.</p>
+      <p>The game designer Richard Bartle argues that designers of virtual worlds are, literally, the gods of those worlds, and asks what they would owe NPCs that became as intelligent as us <a href="#r-bartle">[Bartle 2022]</a>. Chalmers argues that simulated beings can be conscious and that we cannot know we are not in a virtual world <a href="#r-chalmers">[Chalmers 2022]</a>; Proposition 4 is the formal shape of that second claim.</p>
+      <p>For a resident, this turns into a question about the outer world's aims, read from how the world is built. A world tuned for spectacle has the leaks of Section 2. A world in which nothing leaks is either not a game, or is run by someone who is careful about what they run. That inference is not evidence about whether an outer world exists. It shows how much the NPC framing quietly assumes about the people outside.</p>
+
+      <h2 id="s9">9 Verdict</h2>
+      <p><strong>WOUNDED.</strong> The claim holds only in this weaker form: <em>a sentient being inside a simulated world could detect the outer world exactly to the extent that the outer world leaks into theirs, and only if it tests for the right kind of leak; our own world has been searched for every kind of leak we know how to name, and none has been found at current precision.</em></p>
+      <p>The strong form, "they could, so we could", fails on three counts. Our host need not be leaky. Leaks can hide in channels nobody tests. And a host built not to leak is undetectable by Proposition 4.</p>
+      <h3>What would change the verdict</h3>
+      <ul>
+        <li>Toward SURVIVES: a reproducible anomaly that (a) violates causal closure or another tested conservation law and (b) carries information correlated with nothing inside the universe. Either one alone is new physics.</li>
+        <li>Toward DEAD: an argument that any substrate able to host conscious beings must be consistent enough to make \(\lambda = 0\). Then the analogy with games fails completely.</li>
+      </ul>
+
+      <h2 id="refs">References</h2>
+      <p class="note">Every source below was opened or its record checked during this research. The model and the Monte Carlo check are in the <a href="https://github.com/rangasl/evidence-ledger/blob/main/papers/npc-model.py">repository</a>; the figures run the same model in your browser.</p>
+      <ul class="refs" id="ref-list">
+        <li id="r-bartle">Bartle R.A. (2022). <a href="https://repository.essex.ac.uk/32175/"><em>How to Be a God</em></a>. NotByUs.</li>
+        <li id="r-beane">Beane S.R., Davoudi Z., Savage M.J. (2014). Constraints on the universe as a numerical simulation. <em>European Physical Journal A</em> 50:148. <a href="https://arxiv.org/abs/1210.1847">arXiv:1210.1847</a></li>
+        <li id="r-bostrom">Bostrom N. (2003). Are you living in a computer simulation? <em>Philosophical Quarterly</em> 53(211):243–255. <a href="https://www.simulation-argument.com/simulation.pdf">PDF</a></li>
+        <li id="r-campbell">Campbell T., Owhadi H., Sauvageau J., Watkinson D. (2017). On testing the simulation theory. <a href="https://arxiv.org/abs/1703.00058">arXiv:1703.00058</a></li>
+        <li id="r-carroll">Carroll S.M. (2021). The quantum field theory on which the everyday world supervenes. <a href="https://arxiv.org/abs/2101.07884">arXiv:2101.07884</a></li>
+        <li id="r-chalmers">Chalmers D.J. (2022). <em>Reality+</em>. W. W. Norton. <a href="https://consc.net/papers/realityprecis.pdf">Author's précis</a></li>
+        <li id="r-unreal">Epic Games. <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/visibility-and-occlusion-culling-in-unreal-engine">Visibility and occlusion culling in Unreal Engine</a>. Official documentation.</li>
+        <li id="r-hensen">Hensen B. et al. (2015). Loophole-free Bell inequality violation using electron spins separated by 1.3 kilometres. <em>Nature</em> 526:682–686. <a href="https://doi.org/10.1038/nature15759">doi:10.1038/nature15759</a></li>
+        <li id="r-metzinger">Metzinger T. (2021). Artificial suffering: an argument for a global moratorium on synthetic phenomenology. <em>Journal of Artificial Intelligence and Consciousness</em> 8(1):43–66. <a href="https://doi.org/10.1142/S270507852150003X">doi:10.1142/S270507852150003X</a></li>
+        <li id="r-rosenband">Rosenband T. et al. (2008). Frequency ratio of Al<sup>+</sup> and Hg<sup>+</sup> single-ion optical clocks; metrology at the 17th decimal place. <em>Science</em> 319:1808–1812. <a href="https://doi.org/10.1126/science.1154622">doi:10.1126/science.1154622</a></li>
+        <li id="r-sg">Schwitzgebel E., Garza M. (2015). A defense of the rights of artificial intelligences. <em>Midwest Studies in Philosophy</em> 39:98–119. <a href="https://doi.org/10.1111/misp.12032">doi:10.1111/misp.12032</a></li>
+        <li id="r-gdc">Smrček P. Supporting thousands of NPCs in <em>Kingdom Come: Deliverance</em> and <em>KCD II</em>. <a href="https://gdcvault.com/play/1035718/Supporting-Thousands-of-NPCs-in">GDC Vault</a>.</li>
+        <li id="r-wald">Wald A. (1945). Sequential tests of statistical hypotheses. <em>Annals of Mathematical Statistics</em> 16(2):117–186. <a href="https://doi.org/10.1214/aoms/1177731118">doi:10.1214/aoms/1177731118</a>. For the stopping-time result in terms of KL divergence, see <a href="https://arxiv.org/abs/2504.19952">Agrawal, Ram &amp; Ramdas 2025</a>.</li>
+      </ul>
+      <p class="note">Novelty: we found no formal model of an NPC detecting players from inside a game, and no academic framing of dualism's interaction problem as "player input". That is a weak negative from two searches. Not relied on, because it could not be opened: Yampolskiy, "How to escape from the simulation" (2023).</p>
+
+      <h2 id="rev">Revisions</h2>
+      <p class="note">25 November 2026: version 1 published. Later changes will be added here with the date and reason; earlier text is not rewritten.</p>
+
+      <div class="paper-foot-nav"><a href="nirvana-exit.html">Previous: R01, Nirvāṇa as an exit condition</a><a href="../research.html">All research papers</a></div>
+    </article>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>An independent, one-person research lab working with AI research agents. Every source is checked before it is published.</p>
+    <p><a href="https://github.com/rangasl/evidence-ledger">Source and history on GitHub</a></p>
+  </div>
+</footer>
+<script type="module" src="npc.js?v=2"></script>
+</body>
+</html>
