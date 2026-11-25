@@ -11,6 +11,18 @@
       "summary": "The timing holds; reading it as “no free will” does not.",
       "survives": "For arbitrary, purposeless movements, a slow brain signal begins several hundred ms before the reported urge. The reported urge is not the first measurable event — but nothing shows the brain decided unconsciously, and it doesn't cover real choices.",
       "file": "days/2026-11-24.md"
+    },
+    {
+      "day": 2,
+      "date": "2026-11-25",
+      "id": "SIM01",
+      "track": "SIM",
+      "title": "If one of three things must be true, are we simulated?",
+      "source": "Bostrom 2003",
+      "verdict": "WOUNDED",
+      "summary": "The trilemma is valid logic, but it puts the odds of simulation near a third to a half, not “almost certainly”.",
+      "survives": "You can't consistently believe all three: we'll reach posthuman tech, posthumans run many ancestor simulations, and we aren't simulated. But on its own the argument gives about 1/3 (Bostrom) to just under 1/2 (Kipping) odds of simulation, not near-certainty, and it says nothing about free will.",
+      "file": "days/2026-11-25.md"
     }
   ]
 }

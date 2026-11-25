@@ -20,7 +20,7 @@ Status: QUEUED · IN-PROGRESS · SURVIVES · WOUNDED · DEAD · UNFALSIFIABLE
 ## SIM — Simulation
 | ID | Claim | Primary source | Tag | Status |
 |---|---|---|---|---|
-| SIM01 | At least one of: civilisations die young / don't run ancestor sims / we are almost surely simulated | Bostrom 2003, *Philosophical Quarterly* | argument | QUEUED |
+| SIM01 | At least one of: civilisations die young / don't run ancestor sims / we are almost surely simulated | Bostrom 2003, *Philosophical Quarterly* | argument | WOUNDED (2026-11-25) |
 | SIM02 | A lattice-simulated universe would show a direction-dependent cutoff in the highest-energy cosmic rays | Beane, Davoudi & Savage 2014, *Eur. Phys. J. A* | testable | QUEUED |
 | SIM03 | The Planck length is a "pixel" — space is discrete | Folk claim; tested via photon-arrival Lorentz-invariance limits (Fermi GRB 090510) | likely-dead | QUEUED |
 | SIM04 | Quantum systems only "render" when observed | Folk reading of measurement / double-slit | likely-dead | QUEUED |

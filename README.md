@@ -7,13 +7,14 @@ We publish what dies as well as what survives. Nothing is edited after the fact;
 ## Scoreboard
 | Track | Tested | Survives | Wounded | Dead | Unfalsifiable |
 |---|---|---|---|---|---|
-| SIM — Simulation | 0 | 0 | 0 | 0 | 0 |
+| SIM — Simulation | 1 | 0 | 1 | 0 | 0 |
 | FW — No free will | 1 | 0 | 1 | 0 | 0 |
 
 ## Ledger
 | Day | Date | ID | Claim | Verdict |
 |---|---|---|---|---|
 | 1 | 2026-11-24 | FW01 | Readiness potential precedes the conscious urge (Libet 1983) | [WOUNDED](days/2026-11-24.md) |
+| 2 | 2026-11-25 | SIM01 | Bostrom's simulation trilemma (Bostrom 2003) | [WOUNDED](days/2026-11-25.md) |
 
 ## Method
 Advocate and Prosecutor research each claim blind to each other. A Judge verifies every
