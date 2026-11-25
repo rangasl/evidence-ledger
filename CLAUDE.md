@@ -1,6 +1,7 @@
 # Evidence Ledger — one-person research lab
 
-Director: Ranga (human). Staff: Claude agents in `.claude/agents/`.
+Owner: Ranga (human) — decides, commits, posts. CEO: the `ceo` agent — runs operations, proposes.
+Staff: Claude agents in `.claude/agents/`.
 
 ## Mission
 Two questions, tested one claim per day, in public:
@@ -38,6 +39,13 @@ that thesis every day. Credibility comes from publishing what died, not only wha
 4. **Writer** produces `days/YYYY-MM-DD.md` (from `TEMPLATE.md`) and `threads/YYYY-MM-DD.md`.
 5. Update `BACKLOG.md` status and the scoreboard in `README.md`.
 6. Ranga reviews → commits → posts. Agents never post anything externally.
+
+## Daily shift (`/shift`, 07:00 Asia/Colombo via launchd)
+`scripts/shift.sh` runs `/shift` unattended: drafts the next day's claim (dated tomorrow) unless one
+is already drafted or still awaiting review, runs `/week` on Sundays, then the **CEO** audits the
+output and writes `ops/memos/YYYY-MM-DD.md`. Commits, pushes and posts are blocked in that run.
+The CEO proposes improvements and hires in `ops/LOG.md` and `ops/proposals/`; nothing changes
+until Ranga approves. `ops/` is private (gitignored).
 
 ## Weekly pipeline (`/week`, Sundays)
 1. **Scout** refills backlog to ≥ 14 queued claims (new papers, reader challenges, Ranga's ideas).

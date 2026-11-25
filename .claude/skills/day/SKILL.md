@@ -3,7 +3,7 @@ name: day
 description: Run the daily Evidence Ledger pipeline on one claim (next QUEUED in BACKLOG.md, or the claim ID/text given as args).
 ---
 1. Read CLAUDE.md and BACKLOG.md. Pick the claim (args, else first QUEUED). Mark it IN-PROGRESS.
-   Day number N = count of files in days/ + 1. Date = today.
+   Day number N = count of files in days/ + 1. Date = today, or the date given by /shift.
 2. In ONE message, spawn `advocate` and `prosecutor` agents with the claim text and primary
    source. Give each only the claim — never the other's output.
 3. Spawn `judge` with both briefs verbatim.
