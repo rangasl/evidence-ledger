@@ -155,7 +155,9 @@ function tally(track, days) {
     `<li><a href="${entryUrl(d)}" data-v="${d.verdict}" title="Day ${d.day}: ${esc(d.title)} (${label(d.verdict)})" aria-label="Day ${d.day}: ${esc(d.title)}, ${label(d.verdict)}"></a></li>`).join('');
   const parts = [['SURVIVES','survive'],['WOUNDED','wounded'],['DEAD','dead'],['UNFALSIFIABLE','unfalsifiable']]
     .map(([v, w]) => `${n(v)} ${w}`).join(', ');
-  el.innerHTML = `<ul class="cells">${cells}</ul><p class="tally-text"><strong>${mine.length} tested</strong>: ${parts}</p>`;
+  const total = track === 'SIM' && days.length > mine.length
+    ? `<p class="tally-text"><strong>${days.length} claims tested so far</strong>: ${mine.length} on this question, ${days.length - mine.length} on free will.</p>` : '';
+  el.innerHTML = `<ul class="cells">${cells}</ul><p class="tally-text"><strong>${mine.length} tested</strong> on this question: ${parts}</p>${total}`;
 }
 
 async function main() {
