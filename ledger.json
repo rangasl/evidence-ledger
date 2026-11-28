@@ -47,6 +47,18 @@
       "summary": "Neurons pooled across patients separate late pre-urge activity from earlier activity, but every view of free will, including random-noise and compatibilist accounts, predicts that.",
       "survives": "A neuroscience fact, not evidence for the thesis: some medial-frontal neurons, SMA most of all, change firing up to about a second before people report feeling the urge to press. It is unreplicated, and no-movement periods were never tested.",
       "file": "days/2026-11-27.md"
+    },
+    {
+      "day": 5,
+      "date": "2026-11-28",
+      "id": "FW04",
+      "track": "FW",
+      "title": "Can electric current to the brain make you want to move?",
+      "source": "Desmurget et al. 2009",
+      "verdict": "DEAD",
+      "summary": "Stimulating parietal cortex does make people report wanting to move, but every view of free will expects that, so it is not evidence that free will is absent.",
+      "survives": "Electric current to the inferior parietal cortex can make awake patients report a feeling of wanting to move, and with more current a feeling of having moved, while their muscles stay still. The feeling of choosing comes from the brain, so it can't prove a choice caused an action, but that is expected whether or not free will exists.",
+      "file": "days/2026-11-28.md"
     }
   ]
 }
