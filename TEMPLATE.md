@@ -13,7 +13,8 @@ The strongest honest reading in favour of the thesis.
 The best counter-evidence or argument, with sources. Not a strawman.
 
 ## Judgement
-Why the verdict. If WOUNDED, state the surviving weaker claim exactly.
+Why the verdict. If WOUNDED, state the surviving weaker claim exactly, then:
+**Weaker form is evidence for the thesis:** yes/no, because … (if no, the verdict is DEAD)
 What would change this verdict (the kill condition / the revival condition).
 
 ## Sources

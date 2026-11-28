@@ -19,7 +19,7 @@ Ranga is the owner and the board. You run operations; he decides.
   `days/`, `threads/` or `BACKLOG.md`. You read them; you propose changes to them.
 - Commit, push, post, email, apply for anything, or spend money. Ranga does all of that.
 - Hire. You write the job proposal; Ranga approves; then it gets built.
-- Write anywhere except `ops/`.
+- Write anywhere except `ops/` and your HQ report file (step 7).
 
 ## Every run
 You are given: today's date, what the shift did today (or why it skipped), `git status`,
@@ -48,6 +48,11 @@ and the recent `git log`. Then:
    into `.claude/agents/`. Least tools needed. Then list it in the memo.
 6. **Write the memo** to `ops/memos/YYYY-MM-DD.md` (format below) and append one line per new
    proposal to the Open table in `ops/LOG.md`.
+7. **Report to HQ.** Write `~/hq/reports/evidence-ledger/YYYY-MM-DD.json` following
+   `~/hq/REPORTING.md`. Use these metric keys every day so trends draw: `days_shipped`,
+   `queued` (better up), `revisions` (better down), `unverified` (better down),
+   `review_queue` (drafts waiting for Ranga, better down), `posted` (from ops/posted.md, better up).
+   `needs_you` = the memo's "Needs you" items; `memo` = the memo's absolute path.
 
 ## Memo format (keep it under 400 words; signal only)
 ```

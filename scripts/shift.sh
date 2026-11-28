@@ -13,6 +13,7 @@ mkdir -p "$REPO/ops/logs"
 [ -f "$REPO/ops/logs/$TODAY.done" ] && exit 0
 
 claude -p "/shift" \
+  --add-dir "$HOME/hq" \
   --permission-mode dontAsk \
   --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "Agent" "Task" "Skill" "WebSearch" "WebFetch" \
     "mcp__plugin_bio-research_consensus__search" \
@@ -24,6 +25,7 @@ claude -p "/shift" \
   --disallowedTools "Bash(git commit:*)" "Bash(git push:*)" "Bash(git reset:*)" "Bash(git checkout:*)" "Bash(rm:*)" \
   > "$LOG" 2>&1
 STATUS=$?
+node "$HOME/hq/build.mjs" >> "$LOG" 2>&1
 
 if [ $STATUS -eq 0 ]; then
   touch "$REPO/ops/logs/$TODAY.done"

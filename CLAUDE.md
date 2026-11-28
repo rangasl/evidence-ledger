@@ -28,7 +28,7 @@ that thesis every day. Credibility comes from publishing what died, not only wha
 | Verdict | Meaning |
 |---|---|
 | **SURVIVES** | Strongest known attack fails; claim stands as evidence for the thesis |
-| **WOUNDED** | Claim holds in a weaker form; state the weaker form exactly |
+| **WOUNDED** | Claim holds in a weaker form; state the weaker form exactly, plus the line "Weaker form is evidence for the thesis: yes/no, because …". If no → **DEAD** |
 | **DEAD** | Attack succeeds; claim is not evidence for the thesis |
 | **UNFALSIFIABLE** | No observation could distinguish it; it is philosophy, not evidence. Scored separately |
 
